@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    pygments.lexers.j
-    ~~~~~~~~~~~~~~~~~
+    pygments.lexers.elm
+    ~~~~~~~~~~~~~~~~~~~
 
-    Lexer for the J programming language.
+    Lexer for the Elm programming language.
 
 """
 
@@ -12,28 +12,26 @@ import re
 from pygments.lexer import RegexLexer, words, include
 from pygments.token import Comment, Error, Keyword, Name, Number, Operator, Punctuation, String, Text
 
-__all__ = ['JLexer']
+__all__ = ['ElmLexer']
 
 class JLexer(RegexLexer):
     """
-    For `J <http://jsoftware.com/>`_ source code.
+    For `Elm <http://elm-lang.org/>`_ source code.
     """
 
-    name = 'J'
-    aliases = ['j']
-    filenames = ['*.ijs']
-    mimetypes = ['text/x-j']
+    name = 'Elm'
+    aliases = ['elm']
+    filenames = ['*.elm']
+    mimetypes = ['text/x-elm']
 
     validName = r'\b[a-zA-Z]\w*'
 
     tokens = {
         'root': [
-            # Shebang script
-            (r'#!.*$', Comment.Preproc),
 
-            # Comments
-            (r'NB\..*', Comment.Single),
-            (r'\n+\s*Note', Comment.Multiline, 'comment'),
+            # Comments TODO: just started
+            (r'--.*', Comment.Single),
+            (r'\n+\s*{-', Comment.Multiline, 'comment'),
             (r'\s*Note.*', Comment.Single),
 
             # Whitespace
