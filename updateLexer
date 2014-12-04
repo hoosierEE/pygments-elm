@@ -1,10 +1,16 @@
 #!/bin/bash
-# specify a lexer to test, e.g. ./updateLexer j.py
+# Copies the specified lexer to pygments-main/lexers/ and runs pygmentize on an example file.
+
+# Usage:
+# ./updateLexer elm.py
+
 pygmentsDir=site-packages/pygments/lexers
 if [[ $(uname) = "Darwin" ]]; then
-    sudo cp "$*" /Library/Python/2.7/"$pygmentsDir"/j.py
+    sudo cp "$*" /Library/Python/2.7/"$pygmentsDir"/"$*"
 else
-    sudo cp "$*" /usr/lib/python2.7/"$pygmentsDir"/j.py
+    sudo cp "$*" /usr/lib/python2.7/"$pygmentsDir"/"$*"
 fi
-#pygmentize -f html -O full -o output/test.html examples/testing.ijs
-pygmentize -f html -O full -o output/test.html examples/pacman.ijs
+
+# Be good and only put one thing in this directory.
+pygmentize -f html -O full -o output/test.html examples/*
+# /usr/lib/python2.7/site-packages/pygments/lexers

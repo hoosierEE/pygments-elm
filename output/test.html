@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #408080; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #008000; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+body .cp { color: #BC7A00 } /* Comment.Preproc */
+body .c1 { color: #408080; font-style: italic } /* Comment.Single */
+body .cs { color: #408080; font-style: italic } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #008000 } /* Keyword.Pseudo */
+body .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #B00040 } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BA2121 } /* Literal.String */
+body .na { color: #7D9029 } /* Name.Attribute */
+body .nb { color: #008000 } /* Name.Builtin */
+body .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #0000FF } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #19177C } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BA2121 } /* Literal.String.Backtick */
+body .sc { color: #BA2121 } /* Literal.String.Char */
+body .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BA2121 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BA2121 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BA2121 } /* Literal.String.Single */
+body .ss { color: #19177C } /* Literal.String.Symbol */
+body .bp { color: #008000 } /* Name.Builtin.Pseudo */
+body .vc { color: #19177C } /* Name.Variable.Class */
+body .vg { color: #19177C } /* Name.Variable.Global */
+body .vi { color: #19177C } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight"><pre><span class="nv">module</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Skeleton</span> <span class="nv">where</span>
+
+<span class="nv">import</span> <span class="nv">Color</span>
+<span class="nv">import</span> <span class="nv">Graphics</span><span class="o">.</span><span class="nv">Element</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
+<span class="nv">import</span> <span class="nv">Graphics</span><span class="o">.</span><span class="nv">Input</span> <span class="nv">as</span> <span class="nv">Input</span>
+<span class="nv">import</span> <span class="nv">List</span>
+<span class="nv">import</span> <span class="nv">Signal</span>
+<span class="nv">import</span> <span class="nv">Text</span>
+<span class="nv">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Widgets</span> <span class="p">(</span><span class="nv">headerFaces</span><span class="p">)</span>
+<span class="nv">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">ColorScheme</span> <span class="nv">as</span> <span class="nv">C</span>
+
+
+<span class="nv">skeleton</span> <span class="o">:</span> <span class="nv">String</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">Int</span> <span class="o">-&gt;</span> <span class="nv">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">Int</span><span class="o">,</span><span class="nv">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Element</span>
+<span class="nv">skeleton</span> <span class="nv">localName</span> <span class="nv">bodyFunc</span> <span class="p">(</span><span class="nv">w</span><span class="o">,</span><span class="nv">h</span><span class="p">)</span> <span class="o">=</span>
+  <span class="nv">let</span> <span class="nv">body</span> <span class="o">=</span> <span class="nv">bodyFunc</span> <span class="nv">w</span>
+      <span class="nv">navBar</span> <span class="o">=</span> <span class="nv">heading</span> <span class="nv">localName</span> <span class="nv">w</span>
+      <span class="nv">bodyHeight</span> <span class="o">=</span> <span class="nv">max</span> <span class="p">(</span><span class="nv">heightOf</span> <span class="nv">body</span><span class="p">)</span> <span class="p">(</span><span class="nv">h</span> <span class="o">-</span> <span class="nv">heightOf</span> <span class="nv">navBar</span> <span class="o">-</span> <span class="nv">131</span><span class="p">)</span>
+  <span class="nv">in</span> <span class="nv">color</span> <span class="p">(</span><span class="nv">Color</span><span class="o">.</span><span class="nv">rgb</span> <span class="nv">253</span> <span class="nv">253</span> <span class="nv">253</span><span class="p">)</span> <span class="o">&lt;|</span> <span class="nv">flow</span> <span class="nv">down</span>
+       <span class="o">[</span> <span class="nv">navBar</span>
+       <span class="o">,</span> <span class="nv">container</span> <span class="nv">w</span> <span class="nv">bodyHeight</span> <span class="nv">midTop</span> <span class="nv">body</span>
+       <span class="o">,</span> <span class="nv">spacer</span> <span class="nv">w</span> <span class="nv">80</span>
+       <span class="o">,</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nv">spacer</span> <span class="nv">w</span> <span class="nv">1</span><span class="p">)</span>
+       <span class="o">,</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">lightGrey</span> <span class="o">&lt;|</span> <span class="nv">container</span> <span class="nv">w</span> <span class="nv">50</span> <span class="nv">middle</span> <span class="o">&lt;|</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">centered</span> <span class="nv">footerWords</span>
+       <span class="o">]</span>
+
+<span class="nv">footerWords</span> <span class="o">=</span>
+  <span class="nv">let</span> <span class="nv">wordLink</span> <span class="nv">words1</span> <span class="nv">href</span> <span class="nv">words2</span> <span class="nv">words3</span> <span class="o">=</span>
+          <span class="nv">Text</span><span class="o">.</span><span class="nv">fromString</span> <span class="nv">words1</span> <span class="o">++</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">link</span> <span class="nv">href</span> <span class="p">(</span><span class="nv">Text</span><span class="o">.</span><span class="nv">fromString</span> <span class="nv">words2</span><span class="p">)</span> <span class="o">++</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">fromString</span> <span class="nv">words3</span>
+  <span class="nv">in</span>
+     <span class="nv">Text</span><span class="o">.</span><span class="nv">color</span> <span class="p">(</span><span class="nv">Color</span><span class="o">.</span><span class="nv">rgb</span> <span class="nv">145</span> <span class="nv">145</span> <span class="nv">145</span><span class="p">)</span> <span class="o">&lt;|</span>
+       <span class="nv">wordLink</span> <span class="s">&quot;written in Elm and &quot;</span> <span class="s">&quot;https://github.com/elm-lang/elm-lang.org&quot;</span> <span class="s">&quot;open source&quot;</span> <span class="s">&quot;&quot;</span> <span class="o">++</span>
+       <span class="nv">wordLink</span> <span class="s">&quot; / &quot;</span> <span class="s">&quot;https://github.com/evancz&quot;</span> <span class="s">&quot;Evan Czaplicki&quot;</span> <span class="s">&quot; &amp;copy;2011-14&quot;</span>
+
+<span class="nv">heading</span> <span class="nv">localName</span> <span class="nv">outer</span> <span class="o">=</span>
+  <span class="nv">let</span> <span class="nv">inner</span> <span class="o">=</span> <span class="nv">min</span> <span class="nv">800</span> <span class="nv">outer</span>
+      <span class="nv">leftWidth</span> <span class="o">=</span> <span class="nv">max</span> <span class="nv">0</span> <span class="p">((</span><span class="nv">outer</span> <span class="o">-</span> <span class="nv">inner</span><span class="p">)</span> <span class="o">//</span> <span class="nv">2</span><span class="p">)</span>
+      <span class="nv">rightWidth</span> <span class="o">=</span> <span class="nv">max</span> <span class="nv">0</span> <span class="p">(</span><span class="nv">outer</span> <span class="o">-</span> <span class="nv">leftWidth</span> <span class="o">-</span> <span class="nv">inner</span><span class="p">)</span>
+  <span class="nv">in</span>
+  <span class="nv">flow</span> <span class="nv">right</span>
+  <span class="o">[</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">lightGrey</span> <span class="p">(</span><span class="nv">spacer</span> <span class="nv">leftWidth</span> <span class="nv">40</span><span class="p">)</span> <span class="o">`</span><span class="nv">above</span><span class="o">`</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nv">spacer</span> <span class="nv">leftWidth</span> <span class="nv">1</span><span class="p">)</span>
+  <span class="o">,</span> <span class="nv">topBar</span> <span class="nv">localName</span> <span class="nv">inner</span>
+  <span class="o">,</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">lightGrey</span> <span class="p">(</span><span class="nv">spacer</span> <span class="nv">rightWidth</span> <span class="nv">40</span><span class="p">)</span> <span class="o">`</span><span class="nv">above</span><span class="o">`</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nv">spacer</span> <span class="nv">rightWidth</span> <span class="nv">1</span><span class="p">)</span>
+  <span class="o">]</span>
+
+<span class="nv">topBar</span> <span class="nv">localName</span> <span class="nv">inner</span> <span class="o">=</span>
+  <span class="nv">let</span> <span class="nv">tabs&#39;</span> <span class="o">=</span> <span class="nv">tabs</span> <span class="nv">localName</span>
+      <span class="nv">w</span> <span class="o">=</span> <span class="nv">inner</span> <span class="o">-</span> <span class="nv">widthOf</span> <span class="nv">tabs&#39;</span>
+  <span class="nv">in</span>
+  <span class="nv">flow</span> <span class="nv">right</span>
+  <span class="o">[</span> <span class="nv">flow</span> <span class="nv">down</span>
+    <span class="o">[</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">lightGrey</span> <span class="o">&lt;|</span> <span class="nv">container</span> <span class="nv">w</span> <span class="nv">40</span> <span class="nv">midLeft</span> <span class="nv">logo</span>
+    <span class="o">,</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nv">spacer</span> <span class="nv">w</span> <span class="nv">1</span><span class="p">)</span>
+    <span class="o">]</span>
+  <span class="o">,</span> <span class="nv">tabs&#39;</span>
+  <span class="o">]</span>
+
+<span class="nv">logo</span> <span class="o">=</span>
+    <span class="nv">let</span> <span class="nv">btn</span> <span class="nv">clr</span> <span class="o">=</span>
+          <span class="nv">let</span> <span class="nv">name</span> <span class="o">=</span>
+                <span class="nv">Text</span><span class="o">.</span><span class="nv">fromString</span> <span class="s">&quot;elm&quot;</span>
+                  <span class="o">|&gt;</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">height</span> <span class="nv">24</span>
+                  <span class="o">|&gt;</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">color</span> <span class="nv">clr</span>
+                  <span class="o">|&gt;</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">leftAligned</span>
+          <span class="nv">in</span>
+            <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">lightGrey</span> <span class="o">&lt;|</span>
+            <span class="nv">flow</span> <span class="nv">right</span>
+              <span class="o">[</span> <span class="nv">image</span> <span class="nv">30</span> <span class="nv">30</span> <span class="s">&quot;/logo.png&quot;</span>
+              <span class="o">,</span> <span class="nv">spacer</span> <span class="nv">4</span> <span class="nv">30</span>
+              <span class="o">,</span> <span class="nv">container</span> <span class="p">(</span><span class="nv">widthOf</span> <span class="nv">name</span><span class="p">)</span> <span class="nv">30</span> <span class="nv">middle</span> <span class="nv">name</span>
+              <span class="o">]</span>
+    <span class="nv">in</span>
+        <span class="nv">link</span> <span class="s">&quot;/&quot;</span> <span class="o">&lt;|</span>
+        <span class="nv">Input</span><span class="o">.</span><span class="nv">customButton</span>
+            <span class="p">(</span><span class="nv">Signal</span><span class="o">.</span><span class="nv">send</span> <span class="nv">clicks</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
+            <span class="p">(</span><span class="nv">btn</span> <span class="nv">Color</span><span class="o">.</span><span class="nv">charcoal</span><span class="p">)</span>
+            <span class="p">(</span><span class="nv">btn</span> <span class="nv">Color</span><span class="o">.</span><span class="nv">black</span><span class="p">)</span>
+            <span class="p">(</span><span class="nv">btn</span> <span class="nv">Color</span><span class="o">.</span><span class="nv">black</span><span class="p">)</span>
+
+
+<span class="nv">tabs</span> <span class="nv">localName</span> <span class="o">=</span>
+  <span class="nv">flow</span> <span class="nv">right</span> <span class="p">(</span><span class="nv">List</span><span class="o">.</span><span class="nv">map</span> <span class="p">(</span><span class="nv">tab</span> <span class="nv">localName</span><span class="p">)</span> <span class="nv">paths</span><span class="p">)</span>
+
+
+<span class="nv">paths</span> <span class="o">=</span>
+  <span class="o">[</span> <span class="p">(</span><span class="s">&quot;Learn&quot;</span>    <span class="o">,</span> <span class="s">&quot;/Learn.elm&quot;</span><span class="p">)</span>
+  <span class="o">,</span> <span class="p">(</span><span class="s">&quot;Examples&quot;</span> <span class="o">,</span> <span class="s">&quot;/Examples.elm&quot;</span><span class="p">)</span>
+  <span class="o">,</span> <span class="p">(</span><span class="s">&quot;Libraries&quot;</span><span class="o">,</span> <span class="s">&quot;/Libraries.elm&quot;</span><span class="p">)</span>
+  <span class="o">,</span> <span class="p">(</span><span class="s">&quot;Community&quot;</span><span class="o">,</span> <span class="s">&quot;/Community.elm&quot;</span><span class="p">)</span>
+  <span class="o">,</span> <span class="p">(</span><span class="s">&quot;Blog&quot;</span>     <span class="o">,</span> <span class="s">&quot;/Blog.elm&quot;</span><span class="p">)</span>
+  <span class="o">,</span> <span class="p">(</span><span class="s">&quot;Install&quot;</span>  <span class="o">,</span> <span class="s">&quot;/Install.elm&quot;</span><span class="p">)</span>
+  <span class="o">]</span>
+
+<span class="nv">clicks</span> <span class="o">:</span> <span class="nv">Signal</span><span class="o">.</span><span class="nv">Channel</span> <span class="nv">String</span>
+<span class="nv">clicks</span> <span class="o">=</span>
+  <span class="nv">Signal</span><span class="o">.</span><span class="nv">channel</span> <span class="s">&quot;&quot;</span>
+
+
+<span class="c1">--badMustRemoveThis =</span>
+<span class="c1">--    lift Native.RedirectHack.redirect clicks.signal</span>
+
+
+<span class="nv">tab</span> <span class="nv">localName</span> <span class="p">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">href</span><span class="p">)</span> <span class="o">=</span>
+  <span class="nv">let</span> <span class="p">(</span><span class="nv">accent</span><span class="o">,</span> <span class="nv">h</span><span class="p">)</span> <span class="o">=</span>
+        <span class="nv">if</span> <span class="nv">localName</span> <span class="o">==</span> <span class="nv">name</span> <span class="nv">then</span> <span class="p">(</span><span class="nv">C</span><span class="o">.</span><span class="nv">accent1</span><span class="o">,</span> <span class="nv">3</span><span class="p">)</span> <span class="nv">else</span> <span class="p">(</span><span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span><span class="o">,</span> <span class="nv">1</span><span class="p">)</span>
+
+      <span class="nv">btn</span> <span class="nv">clr</span> <span class="o">=</span>
+          <span class="nv">let</span> <span class="nv">words</span> <span class="o">=</span>
+                <span class="nv">Text</span><span class="o">.</span><span class="nv">fromString</span> <span class="nv">name</span>
+                  <span class="o">|&gt;</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">color</span> <span class="nv">clr</span>
+                  <span class="o">|&gt;</span> <span class="nv">Text</span><span class="o">.</span><span class="nv">leftAligned</span>
+          <span class="nv">in</span>
+            <span class="nv">flow</span> <span class="nv">down</span>
+              <span class="o">[</span> <span class="nv">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">lightGrey</span> <span class="o">&lt;|</span> <span class="nv">container</span> <span class="p">(</span><span class="nv">widthOf</span> <span class="nv">words</span> <span class="o">+</span> <span class="nv">20</span><span class="p">)</span> <span class="nv">40</span> <span class="nv">middle</span> <span class="nv">words</span>
+              <span class="o">,</span> <span class="nv">color</span> <span class="nv">accent</span> <span class="p">(</span><span class="nv">spacer</span> <span class="p">(</span><span class="nv">widthOf</span> <span class="nv">words</span> <span class="o">+</span> <span class="nv">20</span><span class="p">)</span> <span class="nv">h</span><span class="p">)</span>
+              <span class="o">]</span>
+  <span class="nv">in</span>
+    <span class="nv">link</span> <span class="nv">href</span> <span class="o">&lt;|</span>
+      <span class="nv">Input</span><span class="o">.</span><span class="nv">customButton</span>
+          <span class="p">(</span><span class="nv">Signal</span><span class="o">.</span><span class="nv">send</span> <span class="nv">clicks</span> <span class="nv">href</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">btn</span> <span class="nv">Color</span><span class="o">.</span><span class="nv">charcoal</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">btn</span> <span class="nv">Color</span><span class="o">.</span><span class="nv">black</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">btn</span> <span class="nv">Color</span><span class="o">.</span><span class="nv">black</span><span class="p">)</span>
+</pre></div>
+</body>
+</html>
