@@ -1,5 +1,13 @@
 module Website.Skeleton where
 
+{- a multiline comment
+can look like this
+-}
+
+{-| a documentation-style comment
+is for literate style programming -}
+
+    {- multi-line comments can have whitespace in front. -}
 import Color
 import Graphics.Element (..)
 import Graphics.Input as Input
