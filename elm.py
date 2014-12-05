@@ -10,7 +10,7 @@
 import re
 
 from pygments.lexer import RegexLexer, words, include
-from pygments.token import Comment, Error, Keyword, Name, Number, Operator, Punctuation, String, Text
+from pygments.token import Comment, Keyword, Name, Number, Operator, Punctuation, String, Text
 
 __all__ = ['ElmLexer']
 
@@ -207,20 +207,10 @@ class ElmLexer(RegexLexer):
         ],
 
         'doublequote': [
+            (r'\\u[0-9a-fA-F]\{4}', String.Escape),
+            (r'\\[nrfvb\\\"]', String.Escape),
             (r'[^"]', String),
             (r'"', String, '#pop'),
         ],
     }
 
-
-# " Library functions
-
-# " Comments
-# syn match elmTodo "[tT][oO][dD][oO]\|FIXME\|XXX" contained
-# syn match elmLineComment "--.*" contains=elmTodo,@spell
-# syn region elmComment matchgroup=elmComment start="{-|\=" end="-}" contains=elmTodo,elmComment,@spell
-
-# " String literals
-# syn region elmString start="\"" skip="\\\"" end="\"" contains=elmStringEscape
-# syn match elmStringEscape "\\u[0-9a-fA-F]\{4}" contained
-# syn match elmStringEscape "\\[nrfvb\\\"]" contained
