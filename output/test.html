@@ -78,17 +78,17 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <body>
 <h2></h2>
 
-<div class="highlight"><pre><span class="kr">import</span> <span class="kn">Graphics.Element</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
-<span class="kr">import</span> <span class="kt">List</span>
-<span class="kr">import</span> <span class="kt">List</span> <span class="p">((</span><span class="o">::</span><span class="p">))</span>
-<span class="kr">import</span> <span class="nv">Markdown</span>
-<span class="kr">import</span> <span class="kt">Signal</span>
-<span class="kr">import</span> <span class="kt">Text</span>
-<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Skeleton</span> <span class="p">(</span><span class="nv">skeleton</span><span class="p">)</span>
-<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">ColorScheme</span> <span class="p">(</span><span class="nv">accent4</span><span class="p">)</span>
-<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Tiles</span> <span class="kr">as</span> <span class="nv">Tile</span>
-<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Widgets</span> <span class="p">(</span><span class="nv">headerFaces</span><span class="p">)</span>
-<span class="kr">import</span> <span class="kn">Window</span>
+<div class="highlight"><pre><span class="kn">import </span><span class="nc">Graphics.Element</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
+<span class="kn">import </span><span class="nc">List</span>
+<span class="kn">import </span><span class="nc">List</span> <span class="p">((</span><span class="o">::</span><span class="p">))</span>
+<span class="kn">import </span><span class="nc">Markdown</span>
+<span class="kn">import </span><span class="nc">Signal</span>
+<span class="kn">import </span><span class="nc">Text</span>
+<span class="kn">import </span><span class="nc">Website.Skeleton</span> <span class="p">(</span><span class="nv">skeleton</span><span class="p">)</span>
+<span class="kn">import </span><span class="nc">Website.ColorScheme</span> <span class="p">(</span><span class="nv">accent4</span><span class="p">)</span>
+<span class="kn">import </span><span class="nc">Website.Tiles</span> <span class="kr">as</span> <span class="nv">Tile</span>
+<span class="kn">import </span><span class="nc">Website.Widgets</span> <span class="p">(</span><span class="nv">headerFaces</span><span class="p">)</span>
+<span class="kn">import </span><span class="nc">Window</span>
 
 
 <span class="nv">port</span> <span class="nv">title</span> <span class="o">:</span> <span class="kt">String</span>
@@ -97,7 +97,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="kr">main </span><span class="o">:</span> <span class="kt">Signal</span><span class="o">.</span><span class="kt">Signal</span> <span class="kt">Element</span>
 <span class="kr">main </span><span class="o">=</span>
-  <span class="kt">Signal</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">skeleton</span> <span class="s">&quot;Examples&quot;</span> <span class="nv">body</span><span class="p">)</span> <span class="kn">Window</span><span class="o">.</span><span class="nf">dimensions</span>
+  <span class="kt">Signal</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">skeleton</span> <span class="s">&quot;Examples&quot;</span> <span class="nv">body</span><span class="p">)</span> <span class="kt">Window</span><span class="o">.</span><span class="nf">dimensions</span>
 
 
 <span class="nv">body</span> <span class="nv">outer</span> <span class="o">=</span>

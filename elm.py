@@ -9,8 +9,8 @@
 
 import re
 
-from pygments.lexer import RegexLexer, words, include
-from pygments.token import Comment, Keyword, Name, Number, Operator, Punctuation, String, Text
+from pygments.lexer import bygroups, RegexLexer, words, include, using
+from pygments.token import Comment, Keyword, Name, Number, Operator, Punctuation, String, Text, Error
 
 __all__ = ['ElmLexer']
 
@@ -50,7 +50,7 @@ class ElmLexer(RegexLexer):
         'Array', 'Basics', 'Bitwise', 'Char', 'Color',
         'Date', 'Debug', 'Dict', 'Either', 'Graphics.Collage',
         'Graphics.Element', 'Graphics.Input', 'Graphics.Input.Field', 'Http', 'JavaScript.Experimental',
-        'Json', 'Keyboard', 'List', 'Maybe', 'Mouse',
+        'Json', 'Keyboard', 'List', 'Markdown', 'Maybe', 'Mouse',
         'Random', 'Regex', 'Set', 'Signal', 'String',
         'Text', 'Time', 'Touch', 'Trampoline', 'Transform2D',
         'WebSocket', 'Window',
@@ -166,14 +166,17 @@ class ElmLexer(RegexLexer):
             # Strings
             (r'"', String, 'doublequote'),
 
-            # Types
-            (builtinTypes, Keyword.Type),
+            # Imports
+            (r'^\s*import\s*', Keyword.Namespace, 'imports'),
 
             # Keywords
             (reservedWords, Keyword.Reserved),
 
             # Libraries
-            (libraries, Keyword.Namespace),
+            (libraries, Keyword.Type),
+
+            # Types
+            (builtinTypes, Keyword.Type),
 
             # Standard Library Functions
             (standardLibraryFunctions, Name.Function),
@@ -199,6 +202,10 @@ class ElmLexer(RegexLexer):
             (r'-(?!})', Comment.Multiline),
             (r'[^-}]', Comment.Multiline),
             (r'-}', Comment.Multiline, '#pop'),
+        ],
+
+        'imports': [
+            (r'\w+\.?\w+', Name.Class, '#pop'),
         ],
 
         'numbers': [
