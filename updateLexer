@@ -4,6 +4,8 @@
 # Usage:
 # ./updateLexer elm.py
 
+# on Arch Linux:
+# /usr/lib/python2.7/site-packages/pygments/lexers
 pygmentsDir=site-packages/pygments/lexers
 if [[ $(uname) = "Darwin" ]]; then
     sudo cp "$*" /Library/Python/2.7/"$pygmentsDir"/"$*"
@@ -13,4 +15,3 @@ fi
 
 # Be good and only put one thing in this directory.
 pygmentize -f html -O full -o output/test.html examples/*
-# /usr/lib/python2.7/site-packages/pygments/lexers

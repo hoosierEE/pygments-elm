@@ -78,136 +78,238 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <body>
 <h2></h2>
 
-<div class="highlight"><pre><span class="kr">module</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Skeleton</span> <span class="kr">where</span>
-
-<span class="cm">{- a multiline comment</span>
-<span class="cm">can look like this</span>
-<span class="cm">-}</span>
-
-<span class="cm">{-| a documentation-style comment</span>
-<span class="cm">is for literate style programming -}</span>
-
-    <span class="cm">{- multi-line comments can have whitespace in front. -}</span>
-<span class="kr">import</span> <span class="kn">Color</span>
-<span class="kr">import</span> <span class="kn">Graphics.Element</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
-<span class="kr">import</span> <span class="kn">Graphics.Input</span> <span class="kr">as</span> <span class="nv">Input</span>
+<div class="highlight"><pre><span class="kr">import</span> <span class="kn">Graphics.Element</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
 <span class="kr">import</span> <span class="kt">List</span>
+<span class="kr">import</span> <span class="kt">List</span> <span class="p">((</span><span class="o">::</span><span class="p">))</span>
+<span class="kr">import</span> <span class="nv">Markdown</span>
 <span class="kr">import</span> <span class="kt">Signal</span>
 <span class="kr">import</span> <span class="kt">Text</span>
+<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Skeleton</span> <span class="p">(</span><span class="nv">skeleton</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">ColorScheme</span> <span class="p">(</span><span class="nv">accent4</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Tiles</span> <span class="kr">as</span> <span class="nv">Tile</span>
 <span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">Widgets</span> <span class="p">(</span><span class="nv">headerFaces</span><span class="p">)</span>
-<span class="kr">import</span> <span class="nv">Website</span><span class="o">.</span><span class="nv">ColorScheme</span> <span class="kr">as</span> <span class="nv">C</span>
+<span class="kr">import</span> <span class="kn">Window</span>
 
 
-<span class="nv">skeleton</span> <span class="o">:</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span><span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span>
-<span class="nv">skeleton</span> <span class="nv">localName</span> <span class="nv">bodyFunc</span> <span class="p">(</span><span class="nv">w</span><span class="p">,</span><span class="nv">h</span><span class="p">)</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">body</span> <span class="o">=</span> <span class="nv">bodyFunc</span> <span class="nv">w</span>
-      <span class="nv">navBar</span> <span class="o">=</span> <span class="nv">heading</span> <span class="nv">localName</span> <span class="nv">w</span>
-      <span class="nv">bodyHeight</span> <span class="o">=</span> <span class="nf">max</span> <span class="p">(</span><span class="nf">heightOf</span> <span class="nv">body</span><span class="p">)</span> <span class="p">(</span><span class="nv">h</span> <span class="o">-</span> <span class="nf">heightOf</span> <span class="nv">navBar</span> <span class="o">-</span> <span class="mi">131</span><span class="p">)</span>
-  <span class="kr">in</span> <span class="nf">color</span> <span class="p">(</span><span class="kn">Color</span><span class="o">.</span><span class="nf">rgb</span> <span class="mi">253</span> <span class="mi">253</span> <span class="mi">253</span><span class="p">)</span> <span class="o">&lt;|</span> <span class="nf">flow</span> <span class="nf">down</span>
-       <span class="p">[</span> <span class="nv">navBar</span>
-       <span class="p">,</span> <span class="nf">container</span> <span class="nv">w</span> <span class="nv">bodyHeight</span> <span class="nf">midTop</span> <span class="nv">body</span>
-       <span class="p">,</span> <span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">80</span>
-       <span class="p">,</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">1</span><span class="p">)</span>
-       <span class="p">,</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nf">lightGrey</span> <span class="o">&lt;|</span> <span class="nf">container</span> <span class="nv">w</span> <span class="mi">50</span> <span class="nf">middle</span> <span class="o">&lt;|</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">centered</span> <span class="nv">footerWords</span>
-       <span class="p">]</span>
+<span class="nv">port</span> <span class="nv">title</span> <span class="o">:</span> <span class="kt">String</span>
+<span class="nv">port</span> <span class="nv">title</span> <span class="o">=</span> <span class="s">&quot;Examples&quot;</span>
 
-<span class="nv">footerWords</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">wordLink</span> <span class="nv">words1</span> <span class="nv">href</span> <span class="nv">words2</span> <span class="nv">words3</span> <span class="o">=</span>
-          <span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">words1</span> <span class="o">++</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">link</span> <span class="nv">href</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">words2</span><span class="p">)</span> <span class="o">++</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">words3</span>
+
+<span class="kr">main </span><span class="o">:</span> <span class="kt">Signal</span><span class="o">.</span><span class="kt">Signal</span> <span class="kt">Element</span>
+<span class="kr">main </span><span class="o">=</span>
+  <span class="kt">Signal</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">skeleton</span> <span class="s">&quot;Examples&quot;</span> <span class="nv">body</span><span class="p">)</span> <span class="kn">Window</span><span class="o">.</span><span class="nf">dimensions</span>
+
+
+<span class="nv">body</span> <span class="nv">outer</span> <span class="o">=</span>
+  <span class="kr">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="nf">flow</span> <span class="nf">down</span> <span class="o">&lt;|</span> <span class="kt">List</span><span class="o">.</span><span class="nf">intersperse</span> <span class="p">(</span><span class="nf">spacer</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">)</span> <span class="nv">content</span>
   <span class="kr">in</span>
-     <span class="kt">Text</span><span class="o">.</span><span class="nf">color</span> <span class="p">(</span><span class="kn">Color</span><span class="o">.</span><span class="nf">rgb</span> <span class="mi">145</span> <span class="mi">145</span> <span class="mi">145</span><span class="p">)</span> <span class="o">&lt;|</span>
-       <span class="nv">wordLink</span> <span class="s">&quot;written in Elm and &quot;</span> <span class="s">&quot;https://github.com/elm-lang/elm-lang.org&quot;</span> <span class="s">&quot;open source&quot;</span> <span class="s">&quot;&quot;</span> <span class="o">++</span>
-       <span class="nv">wordLink</span> <span class="s">&quot; / &quot;</span> <span class="s">&quot;https://github.com/evancz&quot;</span> <span class="s">&quot;Evan Czaplicki&quot;</span> <span class="s">&quot; &amp;copy;2011-14&quot;</span>
+    <span class="nf">container</span> <span class="nv">outer</span> <span class="p">(</span><span class="nf">heightOf</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">middle</span> <span class="nv">b</span>
 
-<span class="nv">heading</span> <span class="nv">localName</span> <span class="nv">outer</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">inner</span> <span class="o">=</span> <span class="nf">min</span> <span class="mi">800</span> <span class="nv">outer</span>
-      <span class="nv">leftWidth</span> <span class="o">=</span> <span class="nf">max</span> <span class="mi">0</span> <span class="p">((</span><span class="nv">outer</span> <span class="o">-</span> <span class="nv">inner</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
-      <span class="nv">rightWidth</span> <span class="o">=</span> <span class="nf">max</span> <span class="mi">0</span> <span class="p">(</span><span class="nv">outer</span> <span class="o">-</span> <span class="nv">leftWidth</span> <span class="o">-</span> <span class="nv">inner</span><span class="p">)</span>
+<span class="nv">content</span> <span class="o">=</span>
+  <span class="kr">let</span> <span class="nv">w</span> <span class="o">=</span> <span class="mi">600</span>
+      <span class="nv">exs</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Display&quot;</span><span class="p">,</span><span class="nv">elements</span><span class="p">),</span> <span class="p">(</span><span class="s">&quot;React&quot;</span><span class="p">,</span><span class="nv">reactive</span><span class="p">),</span> <span class="p">(</span><span class="s">&quot;Compute&quot;</span><span class="p">,</span><span class="nv">functional</span><span class="p">)</span> <span class="p">]</span>
   <span class="kr">in</span>
-  <span class="nf">flow</span> <span class="nf">right</span>
-  <span class="p">[</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nf">lightGrey</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">leftWidth</span> <span class="mi">40</span><span class="p">)</span> <span class="o">`</span><span class="nf">above</span><span class="o">`</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">leftWidth</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">,</span> <span class="nv">topBar</span> <span class="nv">localName</span> <span class="nv">inner</span>
-  <span class="p">,</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nf">lightGrey</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">rightWidth</span> <span class="mi">40</span><span class="p">)</span> <span class="o">`</span><span class="nf">above</span><span class="o">`</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">rightWidth</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">]</span>
+      <span class="nf">width</span> <span class="nv">w</span> <span class="nf">words</span> <span class="o">::</span>
+      <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">subsection</span> <span class="nv">w</span><span class="p">)</span> <span class="nv">exs</span> <span class="o">++</span>
+      <span class="p">[</span> <span class="nf">width</span> <span class="nv">w</span> <span class="nv">intermediate</span>
+      <span class="p">,</span> <span class="nv">Tile</span><span class="o">.</span><span class="nv">examples</span> <span class="nv">w</span> <span class="nv">intermediates</span>
+      <span class="p">,</span> <span class="nf">width</span> <span class="nv">w</span> <span class="nv">projects</span>
+      <span class="p">]</span>
 
-<span class="nv">topBar</span> <span class="nv">localName</span> <span class="nv">inner</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">tabs&#39;</span> <span class="o">=</span> <span class="nv">tabs</span> <span class="nv">localName</span>
-      <span class="nv">w</span> <span class="o">=</span> <span class="nv">inner</span> <span class="o">-</span> <span class="nf">widthOf</span> <span class="nv">tabs&#39;</span>
-  <span class="kr">in</span>
-  <span class="nf">flow</span> <span class="nf">right</span>
-  <span class="p">[</span> <span class="nf">flow</span> <span class="nf">down</span>
-    <span class="p">[</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nf">lightGrey</span> <span class="o">&lt;|</span> <span class="nf">container</span> <span class="nv">w</span> <span class="mi">40</span> <span class="nf">midLeft</span> <span class="nv">logo</span>
-    <span class="p">,</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="p">]</span>
-  <span class="p">,</span> <span class="nv">tabs&#39;</span>
-  <span class="p">]</span>
+<span class="nf">words</span> <span class="o">=</span> <span class="nv">Markdown</span><span class="o">.</span><span class="nf">toElement</span> <span class="s">&quot;&quot;&quot;</span>
 
-<span class="nv">logo</span> <span class="o">=</span>
-    <span class="kr">let</span> <span class="nv">btn</span> <span class="nv">clr</span> <span class="o">=</span>
-          <span class="kr">let</span> <span class="nv">name</span> <span class="o">=</span>
-                <span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="s">&quot;elm&quot;</span>
-                  <span class="o">|&gt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">height</span> <span class="mi">24</span>
-                  <span class="o">|&gt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">color</span> <span class="nv">clr</span>
-                  <span class="o">|&gt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nv">leftAligned</span>
-          <span class="kr">in</span>
-            <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nf">lightGrey</span> <span class="o">&lt;|</span>
-            <span class="nf">flow</span> <span class="nf">right</span>
-              <span class="p">[</span> <span class="nf">image</span> <span class="mi">30</span> <span class="mi">30</span> <span class="s">&quot;/logo.png&quot;</span>
-              <span class="p">,</span> <span class="nf">spacer</span> <span class="mi">4</span> <span class="mi">30</span>
-              <span class="p">,</span> <span class="nf">container</span> <span class="p">(</span><span class="nf">widthOf</span> <span class="nv">name</span><span class="p">)</span> <span class="mi">30</span> <span class="nf">middle</span> <span class="nv">name</span>
-              <span class="p">]</span>
+<span class="s"># Examples</span>
+
+<span class="s">This page will help you *learn by example* as you read and modify</span>
+<span class="s">Elm code in the [online editor](/try). It is split into sections</span>
+<span class="s">that will help you grow from beginner to expert:</span>
+
+<span class="s"> * [Basics](#basics) &amp;mdash; small programs focused on showing one concept</span>
+<span class="s"> * [Intermediate](#intermediate) &amp;mdash; larger examples that combine basic concepts</span>
+<span class="s"> * [Big Projects](#big-projects) &amp;mdash; websites and games written in Elm</span>
+
+<span class="s">Remember to check the [Elm syntax reference][syntax] when you see new syntax!</span>
+<span class="s">See the [learning resources](/Learn.elm) if you want to learn the fundamentals</span>
+<span class="s">of the language *not* by example. The [library documentation](/Libraries.elm)</span>
+<span class="s">is a very information dense resource once you become familiar with Elm.</span>
+
+<span class="s">  [syntax]: /learn/Syntax.elm &quot;</span><span class="nv">The</span> <span class="nv">Syntax</span> <span class="kr">of</span> <span class="nv">Elm</span><span class="s">&quot;</span>
+
+<span class="s">&lt;h2 id=&quot;</span><span class="nv">basics</span><span class="s">&quot;&gt;Basics&lt;/h2&gt;</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="nv">intermediate</span> <span class="o">=</span> <span class="nv">Markdown</span><span class="o">.</span><span class="nf">toElement</span> <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">&lt;h2 id=&quot;</span><span class="nv">intermediate</span><span class="s">&quot;&gt;Intermediate&lt;/h2&gt;</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="nv">projects</span> <span class="o">=</span> <span class="nv">Markdown</span><span class="o">.</span><span class="nf">toElement</span> <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">&lt;h2 id=&quot;</span><span class="nv">big</span><span class="o">-</span><span class="nv">projects</span><span class="s">&quot;&gt;Big Projects&lt;/h2&gt;</span>
+
+<span class="s">These are all larger projects created with Elm. Fork them and use them</span>
+<span class="s">as templates for your own project!</span>
+
+<span class="s">#### Websites</span>
+
+<span class="s"> * [elm-todomvc](https://github.com/evancz/elm-todomvc) &amp;mdash;</span>
+<span class="s">   todo list modelled on [TodoMVC](http://todomvc.com/)</span>
+<span class="s"> * [elm-lang.org](https://github.com/elm-lang/elm-lang.org) &amp;mdash;</span>
+<span class="s">   front-end and back-end code for this website</span>
+<span class="s">   </span>
+<span class="s">#### Games</span>
+
+<span class="s"> * [Tetris](https://github.com/jcollard/elmtris) &amp;mdash;</span>
+<span class="s">   by Joe Collard</span>
+<span class="s"> * [Breakout](https://github.com/Dobiasd/Breakout#breakout--play-it) &amp;mdash;</span>
+<span class="s">   by Tobias Hermann</span>
+<span class="s"> * [Maze](https://github.com/Dobiasd/Maze#maze--play-it) &amp;mdash;</span>
+<span class="s">   by Tobias Hermann</span>
+<span class="s"> * [Celestia](https://github.com/johnpmayer/celestia) &amp;mdash;</span>
+<span class="s">   modular spaceship game by John P. Mayer Jr</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+
+
+<span class="nv">intermediates</span> <span class="o">=</span>
+    <span class="kr">let</span> <span class="nv">ex</span> <span class="o">=</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">Tile</span><span class="o">.</span><span class="nv">intermediate</span>
+        <span class="nv">gl</span> <span class="o">=</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">Tile</span><span class="o">.</span><span class="nv">webgl</span>
     <span class="kr">in</span>
-        <span class="nf">link</span> <span class="s">&quot;/&quot;</span> <span class="o">&lt;|</span>
-        <span class="nv">Input</span><span class="o">.</span><span class="nf">customButton</span>
-            <span class="p">(</span><span class="kt">Signal</span><span class="o">.</span><span class="nf">send</span> <span class="nf">clicks</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
-            <span class="p">(</span><span class="nv">btn</span> <span class="kn">Color</span><span class="o">.</span><span class="nf">charcoal</span><span class="p">)</span>
-            <span class="p">(</span><span class="nv">btn</span> <span class="kn">Color</span><span class="o">.</span><span class="nf">black</span><span class="p">)</span>
-            <span class="p">(</span><span class="nv">btn</span> <span class="kn">Color</span><span class="o">.</span><span class="nf">black</span><span class="p">)</span>
+        <span class="p">[</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;Mario&quot;</span><span class="p">,</span> <span class="s">&quot;Walk&quot;</span><span class="p">,</span> <span class="s">&quot;Pong&quot;</span><span class="p">,</span> <span class="s">&quot;Turtle&quot;</span> <span class="p">]</span>
+        <span class="p">,</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;TextReverse&quot;</span><span class="p">,</span> <span class="s">&quot;Calculator&quot;</span><span class="p">,</span> <span class="s">&quot;Form&quot;</span><span class="p">,</span> <span class="s">&quot;Flickr&quot;</span> <span class="p">]</span>
+        <span class="p">,</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;Clock&quot;</span><span class="p">,</span> <span class="s">&quot;Plot&quot;</span><span class="p">,</span> <span class="s">&quot;SlideShow&quot;</span><span class="p">,</span> <span class="s">&quot;PieChart&quot;</span> <span class="p">]</span>
+        <span class="p">,</span> <span class="nv">gl</span> <span class="p">[</span> <span class="s">&quot;Triangle&quot;</span><span class="p">,</span> <span class="s">&quot;Cube&quot;</span><span class="p">,</span> <span class="s">&quot;Thwomp&quot;</span><span class="p">,</span> <span class="s">&quot;FirstPerson&quot;</span> <span class="p">]</span>
+        <span class="p">,</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;Physics&quot;</span><span class="p">,</span> <span class="s">&quot;Stamps&quot;</span> <span class="p">]</span>
+        <span class="p">]</span>
 
+<span class="nv">addFolder</span> <span class="nv">folder</span> <span class="nv">lst</span> <span class="o">=</span>
+  <span class="kr">let</span> <span class="nv">add</span> <span class="p">(</span><span class="nv">x</span><span class="p">,</span><span class="nv">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nv">x</span><span class="p">,</span> <span class="nv">folder</span> <span class="o">++</span> <span class="nv">y</span> <span class="o">++</span> <span class="s">&quot;.elm&quot;</span><span class="p">)</span>
+      <span class="nv">f</span> <span class="p">(</span><span class="nv">n</span><span class="p">,</span><span class="nv">xs</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nv">n</span><span class="p">,</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">add</span> <span class="nv">xs</span><span class="p">)</span>
+  <span class="kr">in</span>  <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">f</span> <span class="nv">lst</span>
 
-<span class="nv">tabs</span> <span class="nv">localName</span> <span class="o">=</span>
-  <span class="nf">flow</span> <span class="nf">right</span> <span class="p">(</span><span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">tab</span> <span class="nv">localName</span><span class="p">)</span> <span class="nv">paths</span><span class="p">)</span>
-
-
-<span class="nv">paths</span> <span class="o">=</span>
-  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Learn&quot;</span>    <span class="p">,</span> <span class="s">&quot;/Learn.elm&quot;</span><span class="p">)</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Examples&quot;</span> <span class="p">,</span> <span class="s">&quot;/Examples.elm&quot;</span><span class="p">)</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Libraries&quot;</span><span class="p">,</span> <span class="s">&quot;/Libraries.elm&quot;</span><span class="p">)</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Community&quot;</span><span class="p">,</span> <span class="s">&quot;/Community.elm&quot;</span><span class="p">)</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Blog&quot;</span>     <span class="p">,</span> <span class="s">&quot;/Blog.elm&quot;</span><span class="p">)</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Install&quot;</span>  <span class="p">,</span> <span class="s">&quot;/Install.elm&quot;</span><span class="p">)</span>
+<span class="nv">elements</span> <span class="o">=</span> <span class="nv">addFolder</span> <span class="s">&quot;Elements/&quot;</span>
+  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Words&quot;</span><span class="p">,</span>
+        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="s">&quot;HelloWorld&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Markdown&quot;</span><span class="p">,</span> <span class="s">&quot;Markdown&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Images&quot;</span><span class="p">,</span>
+        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Images&quot;</span><span class="p">,</span> <span class="s">&quot;Image&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Fitted&quot;</span><span class="p">,</span> <span class="s">&quot;FittedImage&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Cropped&quot;</span><span class="p">,</span> <span class="s">&quot;CroppedImage&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Formatting&quot;</span><span class="p">,</span>
+        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Size&quot;</span>    <span class="p">,</span> <span class="s">&quot;Size&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Opacity&quot;</span> <span class="p">,</span> <span class="s">&quot;Opacity&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Text&quot;</span>    <span class="p">,</span> <span class="s">&quot;Text&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Typeface&quot;</span><span class="p">,</span> <span class="s">&quot;Typeface&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Layout&quot;</span><span class="p">,</span>
+        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Simple Flow&quot;</span><span class="p">,</span> <span class="s">&quot;FlowDown1a&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Flow Down&quot;</span>  <span class="p">,</span> <span class="s">&quot;FlowDown2&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Layers&quot;</span>     <span class="p">,</span> <span class="s">&quot;Layers&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Positioning&quot;</span><span class="p">,</span>
+        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Containers&quot;</span><span class="p">,</span> <span class="s">&quot;Position&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Spacers&quot;</span>   <span class="p">,</span> <span class="s">&quot;Spacer&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;2D Shapes&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Lines&quot;</span>     <span class="p">,</span> <span class="s">&quot;Lines&quot;</span><span class="p">)</span>
+                  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Shapes&quot;</span>    <span class="p">,</span> <span class="s">&quot;Shapes&quot;</span><span class="p">)</span>
+                  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Elements&quot;</span>  <span class="p">,</span> <span class="s">&quot;ToForm&quot;</span><span class="p">)</span>
+                  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Transforms&quot;</span><span class="p">,</span> <span class="s">&quot;Transforms&quot;</span><span class="p">)</span>
+                  <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;2D Fills&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Color&quot;</span>    <span class="p">,</span> <span class="s">&quot;Color&quot;</span><span class="p">)</span>
+                 <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Gradient&quot;</span><span class="p">,</span> <span class="s">&quot;LinearGradient&quot;</span><span class="p">)</span>
+                 <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Radial Gradient&quot;</span><span class="p">,</span> <span class="s">&quot;RadialGradient&quot;</span><span class="p">)</span>
+                 <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Texture&quot;</span>  <span class="p">,</span> <span class="s">&quot;Texture&quot;</span><span class="p">)</span>
+                 <span class="p">])</span>
   <span class="p">]</span>
 
-<span class="nf">clicks</span> <span class="o">:</span> <span class="kt">Signal</span><span class="o">.</span><span class="nv">Channel</span> <span class="kt">String</span>
-<span class="nf">clicks</span> <span class="o">=</span>
-  <span class="kt">Signal</span><span class="o">.</span><span class="nv">channel</span> <span class="s">&quot;&quot;</span>
 
+<span class="nv">functional</span> <span class="o">=</span> <span class="nv">addFolder</span> <span class="s">&quot;Functional/&quot;</span>
+  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Recursion&quot;</span><span class="p">,</span>
+      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Factorial&quot;</span>  <span class="p">,</span> <span class="s">&quot;Factorial&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;List Length&quot;</span><span class="p">,</span> <span class="s">&quot;Length&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Zip&quot;</span>        <span class="p">,</span> <span class="s">&quot;Zip&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Quick Sort&quot;</span> <span class="p">,</span> <span class="s">&quot;QuickSort&quot;</span><span class="p">)</span>
+      <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Functions&quot;</span><span class="p">,</span>
+      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Functions&quot;</span>  <span class="p">,</span> <span class="s">&quot;Anonymous&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Application&quot;</span><span class="p">,</span> <span class="s">&quot;Application&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Composition&quot;</span><span class="p">,</span> <span class="s">&quot;Composition&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Infix Ops&quot;</span>  <span class="p">,</span> <span class="s">&quot;Infix&quot;</span><span class="p">)</span>
+      <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Higher-Order&quot;</span><span class="p">,</span>
+      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Map&quot;</span>    <span class="p">,</span> <span class="s">&quot;Map&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Fold&quot;</span>   <span class="p">,</span> <span class="s">&quot;Sum&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Filter&quot;</span> <span class="p">,</span> <span class="s">&quot;Filter&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;ZipWith&quot;</span><span class="p">,</span> <span class="s">&quot;ZipWith&quot;</span><span class="p">)</span>
+      <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Data Types&quot;</span><span class="p">,</span>
+      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Maybe&quot;</span><span class="p">,</span> <span class="s">&quot;Maybe&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Boolean Expressions&quot;</span><span class="p">,</span> <span class="s">&quot;BooleanExpressions&quot;</span><span class="p">)</span>
+      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Tree&quot;</span><span class="p">,</span> <span class="s">&quot;Tree&quot;</span><span class="p">)</span>
+      <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Libraries&quot;</span><span class="p">,</span>
+        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Either&quot;</span><span class="p">,</span> <span class="s">&quot;Either&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Dict&quot;</span><span class="p">,</span> <span class="s">&quot;Dict&quot;</span><span class="p">)</span>
+        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Set&quot;</span><span class="p">,</span> <span class="s">&quot;Set&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+  <span class="p">]</span>
 
-<span class="c1">--badMustRemoveThis =</span>
-<span class="c1">--    lift Native.RedirectHack.redirect clicks.signal</span>
+<span class="nv">reactive</span> <span class="o">=</span> <span class="nv">addFolder</span> <span class="s">&quot;Reactive/&quot;</span>
+  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Mouse&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Position&quot;</span><span class="p">,</span> <span class="s">&quot;Position&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Presses&quot;</span>    <span class="p">,</span> <span class="s">&quot;IsDown&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Clicks&quot;</span>    <span class="p">,</span> <span class="s">&quot;CountClicks&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Yogi&quot;</span><span class="p">,</span> <span class="s">&quot;ResizeYogi&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Track&quot;</span><span class="p">,</span> <span class="s">&quot;Transforms&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,(</span><span class="s">&quot;Keyboard&quot;</span><span class="p">,[</span> <span class="p">(</span><span class="s">&quot;Arrows&quot;</span>     <span class="p">,</span> <span class="s">&quot;Arrows&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;wasd&quot;</span>       <span class="p">,</span> <span class="s">&quot;Wasd&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Keys Down&quot;</span>  <span class="p">,</span> <span class="s">&quot;KeysDown&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Key Presses&quot;</span><span class="p">,</span> <span class="s">&quot;CharPressed&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Touch&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Raw&quot;</span><span class="p">,</span> <span class="s">&quot;Touches&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Touches&quot;</span><span class="p">,</span> <span class="s">&quot;Touch&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Taps&quot;</span><span class="p">,</span> <span class="s">&quot;Taps&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Draw&quot;</span><span class="p">,</span> <span class="s">&quot;Draw&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Window&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Size&quot;</span><span class="p">,</span> <span class="s">&quot;ResizePaint&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Centering&quot;</span><span class="p">,</span> <span class="s">&quot;Centering&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Time&quot;</span><span class="p">,</span>   <span class="p">[</span> <span class="p">(</span><span class="s">&quot;FPS&quot;</span>     <span class="p">,</span> <span class="s">&quot;Fps&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;FPS when&quot;</span><span class="p">,</span> <span class="s">&quot;FpsWhen&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Every&quot;</span>   <span class="p">,</span> <span class="s">&quot;Every&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Input&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="s">&quot;TextField&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Password&quot;</span>  <span class="p">,</span> <span class="s">&quot;Password&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Checkbox&quot;</span><span class="p">,</span> <span class="s">&quot;CheckBox&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Drop Down&quot;</span><span class="p">,</span> <span class="s">&quot;DropDown&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Random&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Randomize&quot;</span><span class="p">,</span> <span class="s">&quot;Randomize&quot;</span><span class="p">)</span> <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Http&quot;</span><span class="p">,</span>   <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Zip Codes&quot;</span><span class="p">,</span> <span class="s">&quot;ZipCodes&quot;</span><span class="p">)</span> <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Filters&quot;</span><span class="p">,[</span> <span class="p">(</span><span class="s">&quot;Sample&quot;</span><span class="p">,</span> <span class="s">&quot;SampleOn&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Numbers Only&quot;</span><span class="p">,</span> <span class="s">&quot;KeepIf&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Ports&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Logging&quot;</span><span class="p">,</span><span class="s">&quot;Log&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Set Title&quot;</span><span class="p">,</span><span class="s">&quot;Title&quot;</span><span class="p">)</span>
+               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Redirect&quot;</span><span class="p">,</span><span class="s">&quot;Redirect&quot;</span><span class="p">)</span>
+               <span class="p">])</span>
+  <span class="p">]</span>
 
+<span class="nv">example</span> <span class="p">(</span><span class="nv">name</span><span class="p">,</span> <span class="nv">loc</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">link</span> <span class="p">(</span><span class="s">&quot;/edit/examples/&quot;</span> <span class="o">++</span> <span class="nv">loc</span><span class="p">)</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">name</span><span class="p">)</span>
+<span class="nv">toLinks</span> <span class="p">(</span><span class="nv">title</span><span class="p">,</span> <span class="nv">links</span><span class="p">)</span> <span class="o">=</span>
+  <span class="nf">flow</span> <span class="nf">right</span>
+   <span class="p">[</span> <span class="nf">width</span> <span class="mi">150</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">plainText</span> <span class="o">&lt;|</span> <span class="s">&quot;    &quot;</span> <span class="o">++</span> <span class="nv">title</span><span class="p">)</span>
+   <span class="p">,</span> <span class="kt">Text</span><span class="o">.</span><span class="nv">leftAligned</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">join</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="s">&quot;, &quot;</span><span class="p">)</span> <span class="o">&lt;|</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">example</span> <span class="nv">links</span>
+   <span class="p">]</span>
 
-<span class="nv">tab</span> <span class="nv">localName</span> <span class="p">(</span><span class="nv">name</span><span class="p">,</span> <span class="nv">href</span><span class="p">)</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="p">(</span><span class="nv">accent</span><span class="p">,</span> <span class="nv">h</span><span class="p">)</span> <span class="o">=</span>
-        <span class="kr">if</span> <span class="nv">localName</span> <span class="o">==</span> <span class="nv">name</span> <span class="kr">then</span> <span class="p">(</span><span class="nv">C</span><span class="o">.</span><span class="nv">accent1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="kr">else</span> <span class="p">(</span><span class="nv">C</span><span class="o">.</span><span class="nv">mediumGrey</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-      <span class="nv">btn</span> <span class="nv">clr</span> <span class="o">=</span>
-          <span class="kr">let</span> <span class="nf">words</span> <span class="o">=</span>
-                <span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">name</span>
-                  <span class="o">|&gt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">color</span> <span class="nv">clr</span>
-                  <span class="o">|&gt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nv">leftAligned</span>
-          <span class="kr">in</span>
-            <span class="nf">flow</span> <span class="nf">down</span>
-              <span class="p">[</span> <span class="nf">color</span> <span class="nv">C</span><span class="o">.</span><span class="nf">lightGrey</span> <span class="o">&lt;|</span> <span class="nf">container</span> <span class="p">(</span><span class="nf">widthOf</span> <span class="nf">words</span> <span class="o">+</span> <span class="mi">20</span><span class="p">)</span> <span class="mi">40</span> <span class="nf">middle</span> <span class="nf">words</span>
-              <span class="p">,</span> <span class="nf">color</span> <span class="nv">accent</span> <span class="p">(</span><span class="nf">spacer</span> <span class="p">(</span><span class="nf">widthOf</span> <span class="nf">words</span> <span class="o">+</span> <span class="mi">20</span><span class="p">)</span> <span class="nv">h</span><span class="p">)</span>
-              <span class="p">]</span>
-  <span class="kr">in</span>
-    <span class="nf">link</span> <span class="nv">href</span> <span class="o">&lt;|</span>
-      <span class="nv">Input</span><span class="o">.</span><span class="nf">customButton</span>
-          <span class="p">(</span><span class="kt">Signal</span><span class="o">.</span><span class="nf">send</span> <span class="nf">clicks</span> <span class="nv">href</span><span class="p">)</span>
-          <span class="p">(</span><span class="nv">btn</span> <span class="kn">Color</span><span class="o">.</span><span class="nf">charcoal</span><span class="p">)</span>
-          <span class="p">(</span><span class="nv">btn</span> <span class="kn">Color</span><span class="o">.</span><span class="nf">black</span><span class="p">)</span>
-          <span class="p">(</span><span class="nv">btn</span> <span class="kn">Color</span><span class="o">.</span><span class="nf">black</span><span class="p">)</span>
+<span class="nv">subsection</span> <span class="nv">w</span> <span class="p">(</span><span class="nv">name</span><span class="p">,</span><span class="nv">info</span><span class="p">)</span> <span class="o">=</span>
+  <span class="nf">flow</span> <span class="nf">down</span> <span class="o">&lt;&lt;</span> <span class="kt">List</span><span class="o">.</span><span class="nf">intersperse</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nf">width</span> <span class="nv">w</span><span class="p">)</span> <span class="o">&lt;|</span>
+    <span class="p">(</span><span class="nf">tag</span> <span class="nv">name</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nv">leftAligned</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">typeface</span> <span class="nv">headerFaces</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">bold</span> <span class="o">&lt;|</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">name</span><span class="p">)</span> <span class="o">::</span>
+    <span class="nf">spacer</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">::</span>
+    <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">toLinks</span> <span class="nv">info</span> <span class="o">++</span> <span class="p">[</span><span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">12</span><span class="p">]</span>
 </pre></div>
 </body>
 </html>
