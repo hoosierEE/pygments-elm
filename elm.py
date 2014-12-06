@@ -33,7 +33,6 @@ class ElmLexer(RegexLexer):
         'Char',
         'Comparable',
         'Date',
-        'Either',
         'Element',
         'False',
         'Float',
@@ -98,22 +97,20 @@ class ElmLexer(RegexLexer):
         'Date',
         'Debug',
         'Dict',
-        'Either',
         'Graphics.Collage',
         'Graphics.Element',
         'Graphics.Input',
         'Graphics.Input.Field',
         'Http',
-        'JavaScript.Experimental',
-        'Json',
+        'Json.Decode',
+        'Json.Encode',
         'Keyboard',
         'List',
-        'Markdown',
         'Maybe',
         'Mouse',
-        'Native',
         'Random',
         'Regex',
+        'Result',
         'Set',
         'Signal',
         'String',
@@ -121,12 +118,13 @@ class ElmLexer(RegexLexer):
         'Time',
         'Touch',
         'Trampoline',
+        'Transform2D',
         'WebSocket',
-        'Window',
+        'Window.elm',
         ), suffix=r'\b')
 
 
-    standardLibraryFunctions = words((
+    coreLib = words((
         '(&&)',
         '(*)',
         '(+)',
@@ -143,6 +141,7 @@ class ElmLexer(RegexLexer):
         '(||)',
         'above',
         'abs',
+        'andThen',
         'negate',
         'isNaN',
         'isInfinite',
@@ -401,6 +400,7 @@ class ElmLexer(RegexLexer):
         'multiply',
         'ngon',
         'not',
+        'oneOf',
         'opacity',
         'or',
         'orange',
@@ -537,6 +537,7 @@ class ElmLexer(RegexLexer):
         'white',
         'width',
         'widthOf',
+        'withDefault',
         'words',
         'xor',
         'year',
@@ -581,7 +582,7 @@ class ElmLexer(RegexLexer):
     tokens = {
         'root': [
 
-            # Comments TODO: just started
+            # Comments
             (r'{-', Comment.Multiline, 'comment'),
             (r'--.*', Comment.Single),
 
@@ -604,7 +605,7 @@ class ElmLexer(RegexLexer):
             (builtinTypes, Keyword.Type),
 
             # Standard Library Functions
-            (standardLibraryFunctions, Name.Function),
+            (coreLib, Name.Function),
 
             # Main
             (specialName, Keyword.Reserved),

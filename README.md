@@ -10,11 +10,12 @@ Elm source code can be highlighted with some success by existing lexers for Hask
 
 Status
 ------
-* standard libraries - some done, need exhaustive list
-* operators - done, needs to be checked and possibly updated as Elm matures
-* markdown blocks - not done, currently treated as a string
+* operators - done. needs to be checked and possibly updated as Elm matures
+* standard libraries - partial support. need exhaustive list
+* markdown blocks - partial support. currently treated as a string
+* string escapes - not done
 * webgl blocks - not done
-* other? blocks - not done
+* other blocks - not done
 
 for Vim users
 -------------
