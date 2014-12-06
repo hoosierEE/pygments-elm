@@ -78,238 +78,466 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <body>
 <h2></h2>
 
-<div class="highlight"><pre><span class="kn">import </span><span class="nc">Graphics.Element</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
-<span class="kn">import </span><span class="nc">List</span>
-<span class="kn">import </span><span class="nc">List</span> <span class="p">((</span><span class="o">::</span><span class="p">))</span>
-<span class="kn">import </span><span class="nc">Markdown</span>
-<span class="kn">import </span><span class="nc">Signal</span>
-<span class="kn">import </span><span class="nc">Text</span>
-<span class="kn">import </span><span class="nc">Website.Skeleton</span> <span class="p">(</span><span class="nv">skeleton</span><span class="p">)</span>
-<span class="kn">import </span><span class="nc">Website.ColorScheme</span> <span class="p">(</span><span class="nv">accent4</span><span class="p">)</span>
-<span class="kn">import </span><span class="nc">Website.Tiles</span> <span class="kr">as</span> <span class="nv">Tile</span>
-<span class="kn">import </span><span class="nc">Website.Widgets</span> <span class="p">(</span><span class="nv">headerFaces</span><span class="p">)</span>
-<span class="kn">import </span><span class="nc">Window</span>
+<div class="highlight"><pre><span class="kr">module</span> <span class="kt">Basics</span> <span class="kr">where</span>
+
+<span class="cm">{-| Tons of useful functions that get imported by default.</span>
+
+<span class="cm">The following libraries also get imported by default: List, Signal,</span>
+<span class="cm">Text, Maybe, Time, Graphics.Element, Color, Graphics.Collage.</span>
+
+<span class="cm"># Equality</span>
+<span class="cm">@docs (==), (/=)</span>
+
+<span class="cm"># Comparison</span>
+
+<span class="cm">These functions only work on `comparable` types. This includes numbers,</span>
+<span class="cm">characters, strings, lists of comparable things, and tuples of comparable</span>
+<span class="cm">things. Note that tuples with 7 or more elements are not comparable; why</span>
+<span class="cm">are your tuples so big?</span>
+
+<span class="cm">@docs (&lt;), (&gt;), (&lt;=), (&gt;=), max, min, Order, compare</span>
+
+<span class="cm"># Booleans</span>
+<span class="cm">@docs not, (&amp;&amp;), (||), xor, otherwise</span>
+
+<span class="cm"># Mathematics</span>
+<span class="cm">@docs (+), (-), (*), (/), (^), (//), rem, (%), negate, abs, sqrt, clamp, logBase, e</span>
+
+<span class="cm"># Trigonometry</span>
+<span class="cm">@docs pi, cos, sin, tan, acos, asin, atan, atan2</span>
+
+<span class="cm"># Number Conversions</span>
+<span class="cm">@docs round, floor, ceiling, truncate, toFloat</span>
+
+<span class="cm"># Angle Conversions</span>
+<span class="cm">All angle conversions result in &amp;ldquo;standard Elm angles&amp;rdquo;</span>
+<span class="cm">which happen to be radians.</span>
+
+<span class="cm">@docs degrees, radians, turns</span>
+
+<span class="cm"># Polar Coordinates</span>
+<span class="cm">@docs toPolar, fromPolar</span>
+
+<span class="cm"># Floating Point Checks</span>
+<span class="cm">@docs isNaN, isInfinite</span>
+
+<span class="cm"># Strings and Lists</span>
+<span class="cm">@docs toString, (++)</span>
+
+<span class="cm"># Tuples</span>
+<span class="cm">@docs fst, snd</span>
+
+<span class="cm"># Higher-Order Helpers</span>
+<span class="cm">@docs identity, always, (&lt;|), (|&gt;), (&lt;&lt;), (&gt;&gt;), flip, curry, uncurry</span>
+
+<span class="cm">-}</span>
+
+<span class="kn">import </span><span class="nc">Native.Basics</span>
+<span class="kn">import </span><span class="nc">Native.Ports</span>
+<span class="kn">import </span><span class="nc">Native.Show</span>
+<span class="kn">import </span><span class="nc">Native.Utils</span>
+<span class="kn">import </span><span class="nc">Native.Runtime</span>
 
 
-<span class="nv">port</span> <span class="nv">title</span> <span class="o">:</span> <span class="kt">String</span>
-<span class="nv">port</span> <span class="nv">title</span> <span class="o">=</span> <span class="s">&quot;Examples&quot;</span>
+<span class="cm">{-| Convert radians to standard Elm angles (radians). -}</span>
+<span class="nf">radians</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">radians</span> <span class="nv">t</span> <span class="nf">=</span> <span class="nv">t</span>
+
+<span class="cm">{-| Convert degrees to standard Elm angles (radians). -}</span>
+<span class="nf">degrees</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">degrees</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.degrees</span>
+
+<span class="cm">{-| Convert turns to standard Elm angles (radians).</span>
+<span class="cm">One turn is equal to 360&amp;deg;.</span>
+<span class="cm">-}</span>
+<span class="nf">turns</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">turns</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.turns</span>
+
+<span class="cm">{-| Convert polar coordinates (r,&amp;theta;) to cartesian coordinates (x,y). -}</span>
+<span class="nf">fromPolar</span> <span class="nf">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span>
+<span class="nf">fromPolar</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.fromPolar</span>
+
+<span class="cm">{-| Convert cartesian coordinates (x,y) to polar coordinates (r,&amp;theta;). -}</span>
+<span class="nf">toPolar</span> <span class="nf">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span>
+<span class="nf">toPolar</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.toPolar</span>
+
+<span class="p">(</span><span class="nf">+</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="p">(</span><span class="nf">+</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">add</span>
+
+<span class="p">(</span><span class="nf">-</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="p">(</span><span class="nf">-</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.sub</span>
+
+<span class="p">(</span><span class="nf">*</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="p">(</span><span class="nf">*</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">mul</span>
+
+<span class="cm">{-| Floating point division. -}</span>
+<span class="p">(</span><span class="nf">/</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="p">(</span><span class="nf">/</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">floatDiv</span>
+
+<span class="kr">infixl</span> <span class="mi">6</span> <span class="nf">+</span>
+<span class="kr">infixl</span> <span class="mi">6</span> <span class="nf">-</span>
+<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">*</span>
+<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">/</span>
+<span class="kr">infixl</span> <span class="mi">8</span> <span class="nf">^</span>
+
+<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">//</span>
+<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">%</span>
+<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">`rem`</span>
+
+<span class="cm">{-| Integer division. The remainder is discarded. -}</span>
+<span class="p">(</span><span class="nf">//</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="p">(</span><span class="nf">//</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.div</span>
+
+<span class="cm">{-| Find the remainder after dividing one number by another.</span>
+
+<span class="cm">     7 `rem` 2 == 1</span>
+<span class="cm">    -1 `rem` 4 == -1</span>
+<span class="cm">-}</span>
+<span class="nf">rem</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">rem</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.rem</span>
+
+<span class="cm">{-| Perform [modular arithmetic](http://en.wikipedia.org/wiki/Modular_arithmetic).</span>
+
+<span class="cm">     7 % 2 == 1</span>
+<span class="cm">    -1 % 4 == 3</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">%</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="p">(</span><span class="nf">%</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.mod</span>
+
+<span class="cm">{-| Exponentiation</span>
+
+<span class="cm">    3^2 == 9`</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">^</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="p">(</span><span class="nf">^</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">exp</span>
+
+<span class="nf">cos</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">cos</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.cos</span>
+
+<span class="nf">sin</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">sin</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.sin</span>
+
+<span class="nf">tan</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">tan</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.tan</span>
+
+<span class="nf">acos</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">acos</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.acos</span>
+
+<span class="nf">asin</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">asin</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.asin</span>
+
+<span class="cm">{-| You probably do not want to use this. It takes `(y/x)` as the</span>
+<span class="cm">argument, so there is no way to know whether the negative signs comes from</span>
+<span class="cm">the `y` or `x`. Thus, the resulting angle is always between &amp;pi;/2 and -&amp;pi;/2</span>
+<span class="cm">(in quadrants I and IV). You probably want to use `atan2` instead.</span>
+<span class="cm">-}</span>
+<span class="nf">atan</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">atan</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.atan</span>
+
+<span class="cm">{-| This helps you find the angle of a cartesian coordinate.</span>
+<span class="cm">You will almost certainly want to use this instead of `atan`.</span>
+<span class="cm">So `atan2 y x` computes *atan(y/x)* but also keeps track of which</span>
+<span class="cm">quadrant the angle should really be in. The result will be between</span>
+<span class="cm">&amp;pi; and -&amp;pi;, giving you the full range of angles.</span>
+<span class="cm">-}</span>
+<span class="nf">atan2</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">atan2</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.atan2</span>
+
+<span class="cm">{-| Take the square root of a number. -}</span>
+<span class="nf">sqrt</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">sqrt</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.sqrt</span>
+
+<span class="cm">{-| Negate a number.</span>
+
+<span class="cm">    negate 42 == -42</span>
+<span class="cm">    negate -42 == 42</span>
+<span class="cm">    negate 0 == 0</span>
+<span class="cm">-}</span>
+<span class="nf">negate</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="nf">negate</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.negate</span>
+
+<span class="cm">{-| Take the absolute value of a number. -}</span>
+<span class="nf">abs</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="nf">abs</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.abs</span>
+
+<span class="cm">{-| Calculate the logarithm of a number with a given base.</span>
+
+<span class="cm">    logBase 10 100 == 2</span>
+<span class="cm">    logBase 2 256 == 8</span>
+<span class="cm">-}</span>
+<span class="nf">logBase</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">logBase</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.logBase</span>
+
+<span class="cm">{-| Clamps a number within a given range. With the expression</span>
+<span class="cm">`clamp 100 200 x` the results are as follows:</span>
+
+<span class="cm">    100     if x &lt; 100</span>
+<span class="cm">     x      if 100 &lt;= x &lt; 200</span>
+<span class="cm">    200     if 200 &lt;= x</span>
+<span class="cm">-}</span>
+<span class="nf">clamp</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="nf">clamp</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.clamp</span>
+
+<span class="cm">{-| An approximation of pi. -}</span>
+<span class="nf">pi</span> <span class="nf">:</span> <span class="kt">Float</span>
+<span class="nf">pi</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.pi</span>
+
+<span class="cm">{-| An approximation of e. -}</span>
+<span class="nf">e</span> <span class="nf">:</span> <span class="kt">Float</span>
+<span class="nf">e</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.e</span>
+
+<span class="p">(</span><span class="nf">==</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">==</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">eq</span>
+
+<span class="p">(</span><span class="nf">/=</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">/=</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">neq</span>
+
+<span class="p">(</span><span class="nf">&lt;</span><span class="p">)</span>  <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">&lt;</span><span class="p">)</span>  <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">lt</span>
+
+<span class="p">(</span><span class="nf">&gt;</span><span class="p">)</span>  <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">&gt;</span><span class="p">)</span>  <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">gt</span>
+
+<span class="p">(</span><span class="nf">&lt;=</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">&lt;=</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">le</span>
+
+<span class="p">(</span><span class="nf">&gt;=</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">&gt;=</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">ge</span>
+
+<span class="kr">infix</span> <span class="mi">4</span> <span class="nf">==</span>
+<span class="kr">infix</span> <span class="mi">4</span> <span class="nf">/=</span>
+<span class="kr">infix</span> <span class="mi">4</span> <span class="nf">&lt;</span>
+<span class="kr">infix</span> <span class="mi">4</span> <span class="nf">&gt;</span>
+<span class="kr">infix</span> <span class="mi">4</span> <span class="nf">&lt;=</span>
+<span class="kr">infix</span> <span class="mi">4</span> <span class="nf">&gt;=</span>
+
+<span class="cm">{-| Compare any two comparable values. Comparable values include `String`, `Char`,</span>
+<span class="cm">`Int`, `Float`, `Time`, or a list or tuple containing comparable values.</span>
+<span class="cm">These are also the only values that work as `Dict` keys or `Set` members.</span>
+<span class="cm">-}</span>
+<span class="nf">compare</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Order</span>
+<span class="nf">compare</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.compare</span>
+
+<span class="cm">{-| Represents the relative ordering of two things.</span>
+<span class="cm">The relations are less than, equal to, and greater than.</span>
+<span class="cm">-}</span>
+<span class="kr">type</span> <span class="kt">Order</span> <span class="nf">=</span> <span class="kt">LT</span> <span class="err">|</span> <span class="nv">EQ</span> <span class="err">|</span> <span class="kt">GT</span>
+
+<span class="cm">{-| Find the smaller of two comparables. -}</span>
+<span class="nf">min</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span>
+<span class="nf">min</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.min</span>
+
+<span class="cm">{-| Find the larger of two comparables. -}</span>
+<span class="nf">max</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span>
+<span class="nf">max</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.max</span>
+
+<span class="cm">{-| The logical AND operator. `True` if both inputs are `True`.</span>
+<span class="cm">This operator short-circuits to `False` if the first argument is `False`.</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">&amp;&amp;</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">&amp;&amp;</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.and</span>
+
+<span class="cm">{-| The logical OR operator. `True` if one or both inputs are `True`.</span>
+<span class="cm">This operator short-circuits to `True` if the first argument is True.</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">||</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">(</span><span class="nf">||</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.or</span>
+
+<span class="kr">infixr</span> <span class="mi">3</span> <span class="nf">&amp;&amp;</span>
+<span class="kr">infixr</span> <span class="mi">2</span> <span class="nf">||</span>
+
+<span class="cm">{-| The exclusive-or operator. `True` if exactly one input is `True`. -}</span>
+<span class="nf">xor</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">xor</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.xor</span>
+
+<span class="cm">{-| Negate a boolean value.</span>
+
+<span class="cm">    not True == False</span>
+<span class="cm">    not False == True</span>
+<span class="cm">-}</span>
+<span class="nf">not</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">not</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.not</span>
+
+<span class="cm">{-| Equal to `True`. Useful as the last case of a multi-way-if. -}</span>
+<span class="nf">otherwise</span> <span class="nf">:</span> <span class="kt">Bool</span>
+<span class="nf">otherwise</span> <span class="nf">=</span> <span class="kt">True</span>
 
 
-<span class="kr">main </span><span class="o">:</span> <span class="kt">Signal</span><span class="o">.</span><span class="kt">Signal</span> <span class="kt">Element</span>
-<span class="kr">main </span><span class="o">=</span>
-  <span class="kt">Signal</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">skeleton</span> <span class="s">&quot;Examples&quot;</span> <span class="nv">body</span><span class="p">)</span> <span class="kt">Window</span><span class="o">.</span><span class="nf">dimensions</span>
+<span class="c1">-- Conversions</span>
+
+<span class="cm">{-| Round a number to the nearest integer. -}</span>
+<span class="nf">round</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">round</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.round</span>
+
+<span class="cm">{-| Truncate a number, rounding towards zero. -}</span>
+<span class="nf">truncate</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">truncate</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.truncate</span>
+
+<span class="cm">{-| Floor function, rounding down. -}</span>
+<span class="nf">floor</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">floor</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.floor</span>
+
+<span class="cm">{-| Ceiling function, rounding up. -}</span>
+<span class="nf">ceiling</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">ceiling</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.ceiling</span>
+
+<span class="cm">{-| Convert an integer into a float. -}</span>
+<span class="nf">toFloat</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nf">toFloat</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.toFloat</span>
+
+<span class="cm">{- | Determine whether a float is an undefined or unrepresentable number.</span>
+<span class="cm">NaN stands for *not a number* and it is [a standardized part of floating point</span>
+<span class="cm">numbers](http://en.wikipedia.org/wiki/NaN).</span>
+
+<span class="cm">    isNaN (0/0)     == True</span>
+<span class="cm">    isNaN (sqrt -1) == True</span>
+<span class="cm">    isNaN (1/0)     == False  -- infinity is a number</span>
+<span class="cm">    isNaN 1         == False</span>
+<span class="cm">-}</span>
+<span class="nf">isNaN</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">isNaN</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.isNaN</span>
+
+<span class="cm">{- | Determine whether a float is positive or negative infinity.</span>
+
+<span class="cm">    isInfinite (0/0)     == False</span>
+<span class="cm">    isInfinite (sqrt -1) == False</span>
+<span class="cm">    isInfinite (1/0)     == True</span>
+<span class="cm">    isInfinite 1         == False</span>
+
+<span class="cm">Notice that NaN is not infinite! For float `n` to be finite implies that</span>
+<span class="cm">`not (isInfinite n || isNaN n)` evaluates to `True`.</span>
+<span class="cm">-}</span>
+<span class="nf">isInfinite</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">isInfinite</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.isInfinite</span>
 
 
-<span class="nv">body</span> <span class="nv">outer</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="nf">flow</span> <span class="nf">down</span> <span class="o">&lt;|</span> <span class="kt">List</span><span class="o">.</span><span class="nf">intersperse</span> <span class="p">(</span><span class="nf">spacer</span> <span class="mi">20</span> <span class="mi">20</span><span class="p">)</span> <span class="nv">content</span>
-  <span class="kr">in</span>
-    <span class="nf">container</span> <span class="nv">outer</span> <span class="p">(</span><span class="nf">heightOf</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">middle</span> <span class="nv">b</span>
+<span class="cm">{-| Turn any kind of value into a string.</span>
 
-<span class="nv">content</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">w</span> <span class="o">=</span> <span class="mi">600</span>
-      <span class="nv">exs</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Display&quot;</span><span class="p">,</span><span class="nv">elements</span><span class="p">),</span> <span class="p">(</span><span class="s">&quot;React&quot;</span><span class="p">,</span><span class="nv">reactive</span><span class="p">),</span> <span class="p">(</span><span class="s">&quot;Compute&quot;</span><span class="p">,</span><span class="nv">functional</span><span class="p">)</span> <span class="p">]</span>
-  <span class="kr">in</span>
-      <span class="nf">width</span> <span class="nv">w</span> <span class="nf">words</span> <span class="o">::</span>
-      <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nv">subsection</span> <span class="nv">w</span><span class="p">)</span> <span class="nv">exs</span> <span class="o">++</span>
-      <span class="p">[</span> <span class="nf">width</span> <span class="nv">w</span> <span class="nv">intermediate</span>
-      <span class="p">,</span> <span class="nv">Tile</span><span class="o">.</span><span class="nv">examples</span> <span class="nv">w</span> <span class="nv">intermediates</span>
-      <span class="p">,</span> <span class="nf">width</span> <span class="nv">w</span> <span class="nv">projects</span>
-      <span class="p">]</span>
-
-<span class="nf">words</span> <span class="o">=</span> <span class="nv">Markdown</span><span class="o">.</span><span class="nf">toElement</span> <span class="s">&quot;&quot;&quot;</span>
-
-<span class="s"># Examples</span>
-
-<span class="s">This page will help you *learn by example* as you read and modify</span>
-<span class="s">Elm code in the [online editor](/try). It is split into sections</span>
-<span class="s">that will help you grow from beginner to expert:</span>
-
-<span class="s"> * [Basics](#basics) &amp;mdash; small programs focused on showing one concept</span>
-<span class="s"> * [Intermediate](#intermediate) &amp;mdash; larger examples that combine basic concepts</span>
-<span class="s"> * [Big Projects](#big-projects) &amp;mdash; websites and games written in Elm</span>
-
-<span class="s">Remember to check the [Elm syntax reference][syntax] when you see new syntax!</span>
-<span class="s">See the [learning resources](/Learn.elm) if you want to learn the fundamentals</span>
-<span class="s">of the language *not* by example. The [library documentation](/Libraries.elm)</span>
-<span class="s">is a very information dense resource once you become familiar with Elm.</span>
-
-<span class="s">  [syntax]: /learn/Syntax.elm &quot;</span><span class="nv">The</span> <span class="nv">Syntax</span> <span class="kr">of</span> <span class="nv">Elm</span><span class="s">&quot;</span>
-
-<span class="s">&lt;h2 id=&quot;</span><span class="nv">basics</span><span class="s">&quot;&gt;Basics&lt;/h2&gt;</span>
-
-<span class="s">&quot;&quot;&quot;</span>
-
-<span class="nv">intermediate</span> <span class="o">=</span> <span class="nv">Markdown</span><span class="o">.</span><span class="nf">toElement</span> <span class="s">&quot;&quot;&quot;</span>
-
-<span class="s">&lt;h2 id=&quot;</span><span class="nv">intermediate</span><span class="s">&quot;&gt;Intermediate&lt;/h2&gt;</span>
-
-<span class="s">&quot;&quot;&quot;</span>
-
-<span class="nv">projects</span> <span class="o">=</span> <span class="nv">Markdown</span><span class="o">.</span><span class="nf">toElement</span> <span class="s">&quot;&quot;&quot;</span>
-
-<span class="s">&lt;h2 id=&quot;</span><span class="nv">big</span><span class="o">-</span><span class="nv">projects</span><span class="s">&quot;&gt;Big Projects&lt;/h2&gt;</span>
-
-<span class="s">These are all larger projects created with Elm. Fork them and use them</span>
-<span class="s">as templates for your own project!</span>
-
-<span class="s">#### Websites</span>
-
-<span class="s"> * [elm-todomvc](https://github.com/evancz/elm-todomvc) &amp;mdash;</span>
-<span class="s">   todo list modelled on [TodoMVC](http://todomvc.com/)</span>
-<span class="s"> * [elm-lang.org](https://github.com/elm-lang/elm-lang.org) &amp;mdash;</span>
-<span class="s">   front-end and back-end code for this website</span>
-<span class="s">   </span>
-<span class="s">#### Games</span>
-
-<span class="s"> * [Tetris](https://github.com/jcollard/elmtris) &amp;mdash;</span>
-<span class="s">   by Joe Collard</span>
-<span class="s"> * [Breakout](https://github.com/Dobiasd/Breakout#breakout--play-it) &amp;mdash;</span>
-<span class="s">   by Tobias Hermann</span>
-<span class="s"> * [Maze](https://github.com/Dobiasd/Maze#maze--play-it) &amp;mdash;</span>
-<span class="s">   by Tobias Hermann</span>
-<span class="s"> * [Celestia](https://github.com/johnpmayer/celestia) &amp;mdash;</span>
-<span class="s">   modular spaceship game by John P. Mayer Jr</span>
-
-<span class="s">&quot;&quot;&quot;</span>
+<span class="cm">    toString 42    == &quot;42&quot;</span>
+<span class="cm">    toString [1,2] == &quot;[1,2]&quot;</span>
+<span class="cm">-}</span>
+<span class="nf">toString</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">String</span>
+<span class="nf">toString</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="nv">Show</span><span class="nf">.toString</span>
 
 
-<span class="nv">intermediates</span> <span class="o">=</span>
-    <span class="kr">let</span> <span class="nv">ex</span> <span class="o">=</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">Tile</span><span class="o">.</span><span class="nv">intermediate</span>
-        <span class="nv">gl</span> <span class="o">=</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">Tile</span><span class="o">.</span><span class="nv">webgl</span>
-    <span class="kr">in</span>
-        <span class="p">[</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;Mario&quot;</span><span class="p">,</span> <span class="s">&quot;Walk&quot;</span><span class="p">,</span> <span class="s">&quot;Pong&quot;</span><span class="p">,</span> <span class="s">&quot;Turtle&quot;</span> <span class="p">]</span>
-        <span class="p">,</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;TextReverse&quot;</span><span class="p">,</span> <span class="s">&quot;Calculator&quot;</span><span class="p">,</span> <span class="s">&quot;Form&quot;</span><span class="p">,</span> <span class="s">&quot;Flickr&quot;</span> <span class="p">]</span>
-        <span class="p">,</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;Clock&quot;</span><span class="p">,</span> <span class="s">&quot;Plot&quot;</span><span class="p">,</span> <span class="s">&quot;SlideShow&quot;</span><span class="p">,</span> <span class="s">&quot;PieChart&quot;</span> <span class="p">]</span>
-        <span class="p">,</span> <span class="nv">gl</span> <span class="p">[</span> <span class="s">&quot;Triangle&quot;</span><span class="p">,</span> <span class="s">&quot;Cube&quot;</span><span class="p">,</span> <span class="s">&quot;Thwomp&quot;</span><span class="p">,</span> <span class="s">&quot;FirstPerson&quot;</span> <span class="p">]</span>
-        <span class="p">,</span> <span class="nv">ex</span> <span class="p">[</span> <span class="s">&quot;Physics&quot;</span><span class="p">,</span> <span class="s">&quot;Stamps&quot;</span> <span class="p">]</span>
-        <span class="p">]</span>
+<span class="cm">{-| Put two appendable things together. This includes strings, lists, and text.</span>
 
-<span class="nv">addFolder</span> <span class="nv">folder</span> <span class="nv">lst</span> <span class="o">=</span>
-  <span class="kr">let</span> <span class="nv">add</span> <span class="p">(</span><span class="nv">x</span><span class="p">,</span><span class="nv">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nv">x</span><span class="p">,</span> <span class="nv">folder</span> <span class="o">++</span> <span class="nv">y</span> <span class="o">++</span> <span class="s">&quot;.elm&quot;</span><span class="p">)</span>
-      <span class="nv">f</span> <span class="p">(</span><span class="nv">n</span><span class="p">,</span><span class="nv">xs</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nv">n</span><span class="p">,</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">add</span> <span class="nv">xs</span><span class="p">)</span>
-  <span class="kr">in</span>  <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">f</span> <span class="nv">lst</span>
+<span class="cm">    &quot;hello&quot; ++ &quot;world&quot; == &quot;helloworld&quot;</span>
+<span class="cm">    [1,1,2] ++ [3,5,8] == [1,1,2,3,5,8]</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">++</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">appendable</span> <span class="nf">-&gt;</span> <span class="nv">appendable</span> <span class="nf">-&gt;</span> <span class="nv">appendable</span>
+<span class="p">(</span><span class="nf">++</span><span class="p">)</span> <span class="nf">=</span> <span class="kt">Native</span><span class="nf">.</span><span class="nv">Utils</span><span class="nf">.append</span>
 
-<span class="nv">elements</span> <span class="o">=</span> <span class="nv">addFolder</span> <span class="s">&quot;Elements/&quot;</span>
-  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Words&quot;</span><span class="p">,</span>
-        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="s">&quot;HelloWorld&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Markdown&quot;</span><span class="p">,</span> <span class="s">&quot;Markdown&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Images&quot;</span><span class="p">,</span>
-        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Images&quot;</span><span class="p">,</span> <span class="s">&quot;Image&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Fitted&quot;</span><span class="p">,</span> <span class="s">&quot;FittedImage&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Cropped&quot;</span><span class="p">,</span> <span class="s">&quot;CroppedImage&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Formatting&quot;</span><span class="p">,</span>
-        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Size&quot;</span>    <span class="p">,</span> <span class="s">&quot;Size&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Opacity&quot;</span> <span class="p">,</span> <span class="s">&quot;Opacity&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Text&quot;</span>    <span class="p">,</span> <span class="s">&quot;Text&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Typeface&quot;</span><span class="p">,</span> <span class="s">&quot;Typeface&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Layout&quot;</span><span class="p">,</span>
-        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Simple Flow&quot;</span><span class="p">,</span> <span class="s">&quot;FlowDown1a&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Flow Down&quot;</span>  <span class="p">,</span> <span class="s">&quot;FlowDown2&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Layers&quot;</span>     <span class="p">,</span> <span class="s">&quot;Layers&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Positioning&quot;</span><span class="p">,</span>
-        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Containers&quot;</span><span class="p">,</span> <span class="s">&quot;Position&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Spacers&quot;</span>   <span class="p">,</span> <span class="s">&quot;Spacer&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;2D Shapes&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Lines&quot;</span>     <span class="p">,</span> <span class="s">&quot;Lines&quot;</span><span class="p">)</span>
-                  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Shapes&quot;</span>    <span class="p">,</span> <span class="s">&quot;Shapes&quot;</span><span class="p">)</span>
-                  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Elements&quot;</span>  <span class="p">,</span> <span class="s">&quot;ToForm&quot;</span><span class="p">)</span>
-                  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Transforms&quot;</span><span class="p">,</span> <span class="s">&quot;Transforms&quot;</span><span class="p">)</span>
-                  <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;2D Fills&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Color&quot;</span>    <span class="p">,</span> <span class="s">&quot;Color&quot;</span><span class="p">)</span>
-                 <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Gradient&quot;</span><span class="p">,</span> <span class="s">&quot;LinearGradient&quot;</span><span class="p">)</span>
-                 <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Radial Gradient&quot;</span><span class="p">,</span> <span class="s">&quot;RadialGradient&quot;</span><span class="p">)</span>
-                 <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Texture&quot;</span>  <span class="p">,</span> <span class="s">&quot;Texture&quot;</span><span class="p">)</span>
-                 <span class="p">])</span>
-  <span class="p">]</span>
+<span class="kr">infixr</span> <span class="mi">5</span> <span class="nf">++</span>
 
 
-<span class="nv">functional</span> <span class="o">=</span> <span class="nv">addFolder</span> <span class="s">&quot;Functional/&quot;</span>
-  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Recursion&quot;</span><span class="p">,</span>
-      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Factorial&quot;</span>  <span class="p">,</span> <span class="s">&quot;Factorial&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;List Length&quot;</span><span class="p">,</span> <span class="s">&quot;Length&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Zip&quot;</span>        <span class="p">,</span> <span class="s">&quot;Zip&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Quick Sort&quot;</span> <span class="p">,</span> <span class="s">&quot;QuickSort&quot;</span><span class="p">)</span>
-      <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Functions&quot;</span><span class="p">,</span>
-      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Functions&quot;</span>  <span class="p">,</span> <span class="s">&quot;Anonymous&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Application&quot;</span><span class="p">,</span> <span class="s">&quot;Application&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Composition&quot;</span><span class="p">,</span> <span class="s">&quot;Composition&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Infix Ops&quot;</span>  <span class="p">,</span> <span class="s">&quot;Infix&quot;</span><span class="p">)</span>
-      <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Higher-Order&quot;</span><span class="p">,</span>
-      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Map&quot;</span>    <span class="p">,</span> <span class="s">&quot;Map&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Fold&quot;</span>   <span class="p">,</span> <span class="s">&quot;Sum&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Filter&quot;</span> <span class="p">,</span> <span class="s">&quot;Filter&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;ZipWith&quot;</span><span class="p">,</span> <span class="s">&quot;ZipWith&quot;</span><span class="p">)</span>
-      <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Data Types&quot;</span><span class="p">,</span>
-      <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Maybe&quot;</span><span class="p">,</span> <span class="s">&quot;Maybe&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Boolean Expressions&quot;</span><span class="p">,</span> <span class="s">&quot;BooleanExpressions&quot;</span><span class="p">)</span>
-      <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Tree&quot;</span><span class="p">,</span> <span class="s">&quot;Tree&quot;</span><span class="p">)</span>
-      <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Libraries&quot;</span><span class="p">,</span>
-        <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Either&quot;</span><span class="p">,</span> <span class="s">&quot;Either&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Dict&quot;</span><span class="p">,</span> <span class="s">&quot;Dict&quot;</span><span class="p">)</span>
-        <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Set&quot;</span><span class="p">,</span> <span class="s">&quot;Set&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-  <span class="p">]</span>
+<span class="c1">-- Function Helpers</span>
 
-<span class="nv">reactive</span> <span class="o">=</span> <span class="nv">addFolder</span> <span class="s">&quot;Reactive/&quot;</span>
-  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Mouse&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Position&quot;</span><span class="p">,</span> <span class="s">&quot;Position&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Presses&quot;</span>    <span class="p">,</span> <span class="s">&quot;IsDown&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Clicks&quot;</span>    <span class="p">,</span> <span class="s">&quot;CountClicks&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Yogi&quot;</span><span class="p">,</span> <span class="s">&quot;ResizeYogi&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Track&quot;</span><span class="p">,</span> <span class="s">&quot;Transforms&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,(</span><span class="s">&quot;Keyboard&quot;</span><span class="p">,[</span> <span class="p">(</span><span class="s">&quot;Arrows&quot;</span>     <span class="p">,</span> <span class="s">&quot;Arrows&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;wasd&quot;</span>       <span class="p">,</span> <span class="s">&quot;Wasd&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Keys Down&quot;</span>  <span class="p">,</span> <span class="s">&quot;KeysDown&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Key Presses&quot;</span><span class="p">,</span> <span class="s">&quot;CharPressed&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Touch&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Raw&quot;</span><span class="p">,</span> <span class="s">&quot;Touches&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Touches&quot;</span><span class="p">,</span> <span class="s">&quot;Touch&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Taps&quot;</span><span class="p">,</span> <span class="s">&quot;Taps&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Draw&quot;</span><span class="p">,</span> <span class="s">&quot;Draw&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Window&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Size&quot;</span><span class="p">,</span> <span class="s">&quot;ResizePaint&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Centering&quot;</span><span class="p">,</span> <span class="s">&quot;Centering&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Time&quot;</span><span class="p">,</span>   <span class="p">[</span> <span class="p">(</span><span class="s">&quot;FPS&quot;</span>     <span class="p">,</span> <span class="s">&quot;Fps&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;FPS when&quot;</span><span class="p">,</span> <span class="s">&quot;FpsWhen&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Every&quot;</span>   <span class="p">,</span> <span class="s">&quot;Every&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Input&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="s">&quot;TextField&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Password&quot;</span>  <span class="p">,</span> <span class="s">&quot;Password&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Checkbox&quot;</span><span class="p">,</span> <span class="s">&quot;CheckBox&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Drop Down&quot;</span><span class="p">,</span> <span class="s">&quot;DropDown&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Random&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Randomize&quot;</span><span class="p">,</span> <span class="s">&quot;Randomize&quot;</span><span class="p">)</span> <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Http&quot;</span><span class="p">,</span>   <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Zip Codes&quot;</span><span class="p">,</span> <span class="s">&quot;ZipCodes&quot;</span><span class="p">)</span> <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Filters&quot;</span><span class="p">,[</span> <span class="p">(</span><span class="s">&quot;Sample&quot;</span><span class="p">,</span> <span class="s">&quot;SampleOn&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Numbers Only&quot;</span><span class="p">,</span> <span class="s">&quot;KeepIf&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Ports&quot;</span><span class="p">,</span>  <span class="p">[</span> <span class="p">(</span><span class="s">&quot;Logging&quot;</span><span class="p">,</span><span class="s">&quot;Log&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Set Title&quot;</span><span class="p">,</span><span class="s">&quot;Title&quot;</span><span class="p">)</span>
-               <span class="p">,</span> <span class="p">(</span><span class="s">&quot;Redirect&quot;</span><span class="p">,</span><span class="s">&quot;Redirect&quot;</span><span class="p">)</span>
-               <span class="p">])</span>
-  <span class="p">]</span>
+<span class="cm">{-| Function composition, passing results along in the suggested direction. For</span>
+<span class="cm">example, the following code checks if the square root of a number is odd:</span>
 
-<span class="nv">example</span> <span class="p">(</span><span class="nv">name</span><span class="p">,</span> <span class="nv">loc</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">link</span> <span class="p">(</span><span class="s">&quot;/edit/examples/&quot;</span> <span class="o">++</span> <span class="nv">loc</span><span class="p">)</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">name</span><span class="p">)</span>
-<span class="nv">toLinks</span> <span class="p">(</span><span class="nv">title</span><span class="p">,</span> <span class="nv">links</span><span class="p">)</span> <span class="o">=</span>
-  <span class="nf">flow</span> <span class="nf">right</span>
-   <span class="p">[</span> <span class="nf">width</span> <span class="mi">150</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">plainText</span> <span class="o">&lt;|</span> <span class="s">&quot;    &quot;</span> <span class="o">++</span> <span class="nv">title</span><span class="p">)</span>
-   <span class="p">,</span> <span class="kt">Text</span><span class="o">.</span><span class="nv">leftAligned</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">join</span> <span class="p">(</span><span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="s">&quot;, &quot;</span><span class="p">)</span> <span class="o">&lt;|</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">example</span> <span class="nv">links</span>
-   <span class="p">]</span>
+<span class="cm">    not &lt;&lt; isEven &lt;&lt; sqrt</span>
 
-<span class="nv">subsection</span> <span class="nv">w</span> <span class="p">(</span><span class="nv">name</span><span class="p">,</span><span class="nv">info</span><span class="p">)</span> <span class="o">=</span>
-  <span class="nf">flow</span> <span class="nf">down</span> <span class="o">&lt;&lt;</span> <span class="kt">List</span><span class="o">.</span><span class="nf">intersperse</span> <span class="p">(</span><span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="p">(</span><span class="nf">width</span> <span class="nv">w</span><span class="p">)</span> <span class="o">&lt;|</span>
-    <span class="p">(</span><span class="nf">tag</span> <span class="nv">name</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nv">leftAligned</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">typeface</span> <span class="nv">headerFaces</span> <span class="o">&lt;&lt;</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">bold</span> <span class="o">&lt;|</span> <span class="kt">Text</span><span class="o">.</span><span class="nf">fromString</span> <span class="nv">name</span><span class="p">)</span> <span class="o">::</span>
-    <span class="nf">spacer</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">::</span>
-    <span class="kt">List</span><span class="o">.</span><span class="nf">map</span> <span class="nv">toLinks</span> <span class="nv">info</span> <span class="o">++</span> <span class="p">[</span><span class="nf">spacer</span> <span class="nv">w</span> <span class="mi">12</span><span class="p">]</span>
+<span class="cm">You can think of this operator as equivalent to the following:</span>
+
+<span class="cm">    (g &lt;&lt; f)  ==  (\x -&gt; g (f x))</span>
+
+<span class="cm">So our example expands out to something like this:</span>
+
+<span class="cm">    \n -&gt; not (isEven (sqrt n))</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">&lt;&lt;</span><span class="p">)</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">&lt;&lt;</span><span class="p">)</span> <span class="nv">g</span> <span class="nv">f</span> <span class="nv">x</span> <span class="nf">=</span> <span class="nv">g</span> <span class="p">(</span><span class="nv">f</span> <span class="nv">x</span><span class="p">)</span>
+
+<span class="cm">{-| Function composition, passing results along in the suggested direction. For</span>
+<span class="cm">example, the following code checks if the square root of a number is odd:</span>
+
+<span class="cm">    sqrt &gt;&gt; isEven &gt;&gt; not</span>
+
+<span class="cm">This direction of function composition seems less pleasant than `(&lt;&lt;)` which</span>
+<span class="cm">reads nicely in expressions like: `filter (not &lt;&lt; isRegistered) students`</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">&gt;&gt;</span><span class="p">)</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">&gt;&gt;</span><span class="p">)</span> <span class="nv">f</span> <span class="nv">g</span> <span class="nv">x</span> <span class="nf">=</span> <span class="nv">g</span> <span class="p">(</span><span class="nv">f</span> <span class="nv">x</span><span class="p">)</span>
+
+<span class="cm">{-| Forward function application `x |&gt; f == f x`. This function is useful</span>
+<span class="cm">for avoiding parenthesis and writing code in a more natural way.</span>
+<span class="cm">Consider the following code to create a pentagon:</span>
+
+<span class="cm">    scale 2 (move (10,10) (filled blue (ngon 5 30)))</span>
+
+<span class="cm">This can also be written as:</span>
+
+<span class="cm">    ngon 5 30</span>
+<span class="cm">      |&gt; filled blue</span>
+<span class="cm">      |&gt; move (10,10)</span>
+<span class="cm">      |&gt; scale 2</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">|&gt;</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
+<span class="nv">x</span> <span class="nf">|&gt;</span> <span class="nv">f</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">x</span>
+
+<span class="cm">{-| Backward function application `f &lt;| x == f x`. This function is useful for</span>
+<span class="cm">avoiding parenthesis. Consider the following code to create a text element:</span>
+
+<span class="cm">    text (monospace (toText &quot;code&quot;))</span>
+
+<span class="cm">This can also be written as:</span>
+
+<span class="cm">    text &lt;&lt; monospace &lt;| toText &quot;code&quot;</span>
+<span class="cm">-}</span>
+<span class="p">(</span><span class="nf">&lt;|</span><span class="p">)</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
+<span class="nv">f</span> <span class="nf">&lt;|</span> <span class="nv">x</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">x</span>
+
+<span class="kr">infixr</span> <span class="mi">9</span> <span class="nf">&lt;&lt;</span>
+<span class="kr">infixl</span> <span class="mi">9</span> <span class="nf">&gt;&gt;</span>
+<span class="kr">infixr</span> <span class="mi">0</span> <span class="nf">&lt;|</span>
+<span class="kr">infixl</span> <span class="mi">0</span> <span class="nf">|&gt;</span>
+
+<span class="cm">{-| Given a value, returns exactly the same value. This is called</span>
+<span class="cm">[the identity function](http://en.wikipedia.org/wiki/Identity_function).</span>
+<span class="cm">-}</span>
+<span class="nf">identity</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
+<span class="nf">identity</span> <span class="nv">x</span> <span class="nf">=</span> <span class="nv">x</span>
+
+<span class="cm">{-| Create a [constant function](http://en.wikipedia.org/wiki/Constant_function),</span>
+<span class="cm">a function that *always* returns the same value regardless of what input you give.</span>
+<span class="cm">It is defined as:</span>
+
+<span class="cm">    always a b = a</span>
+
+<span class="cm">It totally ignores the second argument, so `always 42` is a function that always</span>
+<span class="cm">returns 42. When you are dealing with higher-order functions, this comes in</span>
+<span class="cm">handy more often than you might expect. For example, creating a zeroed out list</span>
+<span class="cm">of length ten would be:</span>
+
+<span class="cm">    map (always 0) [0..9]</span>
+<span class="cm">-}</span>
+<span class="nf">always</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
+<span class="nf">always</span> <span class="nv">a</span> <span class="kr">_</span> <span class="nf">=</span> <span class="nv">a</span>
+
+<span class="cm">{-| Given a 2-tuple, returns the first value. -}</span>
+<span class="nf">fst</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
+<span class="nf">fst</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="kr">_</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">a</span>
+
+<span class="cm">{-| Given a 2-tuple, returns the second value. -}</span>
+<span class="nf">snd</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
+<span class="nf">snd</span> <span class="p">(</span><span class="kr">_</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">b</span>
+
+<span class="cm">{-| Flip the order of the first two arguments to a function. -}</span>
+<span class="nf">flip</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span>
+<span class="nf">flip</span> <span class="nv">f</span> <span class="nv">b</span> <span class="nv">a</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span>
+
+<span class="cm">{-| Change how arguments are passed to a function.</span>
+<span class="cm">This splits paired arguments into two separate arguments.</span>
+<span class="cm">-}</span>
+<span class="nf">curry</span> <span class="nf">:</span> <span class="p">((</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span>
+<span class="nf">curry</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nf">=</span> <span class="nv">f</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span>
+
+<span class="cm">{-| Change how arguments are passed to a function.</span>
+<span class="cm">This combines two arguments into a single pair.</span>
+<span class="cm">-}</span>
+<span class="nf">uncurry</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">c</span>
+<span class="nf">uncurry</span> <span class="nv">f</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span>
 </pre></div>
 </body>
 </html>
