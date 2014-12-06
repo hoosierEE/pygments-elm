@@ -1,17 +1,17 @@
 #!/bin/bash
-# Copies the specified lexer to pygments-main/lexers/ and runs pygmentize on an example file.
+# Copies the specified lexer to pygments-main/lexers/ and runs pygmentize on a file located inside examples/.
+# Paths are hard-coded for a Pygments installation on either OSX 10.10 (via pip) or Arch Linux (via pacman).
 
 # Usage:
 # ./updateLexer elm.py
 
-# on Arch Linux:
-# /usr/lib/python2.7/site-packages/pygments/lexers
 pygmentsDir=site-packages/pygments/lexers
+
 if [[ $(uname) = "Darwin" ]]; then
     sudo cp "$*" /Library/Python/2.7/"$pygmentsDir"/"$*"
 else
     sudo cp "$*" /usr/lib/python2.7/"$pygmentsDir"/"$*"
 fi
 
-# Be good and only put one thing in this directory.
+# By the way, please only put one test file in examples/ or this will explode.
 pygmentize -f html -O full -o output/test.html examples/*
