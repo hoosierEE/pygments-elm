@@ -4,7 +4,7 @@ An [Elm](http://elm-lang.org) lexer for [pygments](http://pygments.org)
 
 > Work in progress
 
-Inspired by the not-wonderful syntax highlighting for Elm on GitHub, as well as the opportunity to contribute to an open-source project and brush up on my Python a bit, this project hopes to make the world a better place.
+Elm source code can be highlighted with some success by existing lexers for Haskell, but there are enough features to warrant its own lexer, I think. This is especially true for some of the F#-inspired syntax (`|>`) and some often-used standard library functions like `foldp` and `<~`.
 
 **EDIT** There's already an issue open for this at [pygments](https://bitbucket.org/birkenfeld/pygments-main/issue/986/support-for-elm-language).
 
