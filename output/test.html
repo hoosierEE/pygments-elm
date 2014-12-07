@@ -78,7 +78,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <body>
 <h2></h2>
 
-<div class="highlight"><pre><span class="kr">module</span> <span class="kt">Basics</span> <span class="kr">where</span>
+<div class="highlight"><pre><span class="kr">module</span> <span class="nv">Basics</span> <span class="kr">where</span>
 
 <span class="cm">{-| Tons of useful functions that get imported by default.</span>
 
@@ -140,39 +140,39 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 
 <span class="cm">{-| Convert radians to standard Elm angles (radians). -}</span>
-<span class="nf">radians</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">radians</span> <span class="nv">t</span> <span class="nf">=</span> <span class="nv">t</span>
+<span class="nv">radians</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">radians</span> <span class="nv">t</span> <span class="nf">=</span> <span class="nv">t</span>
 
 <span class="cm">{-| Convert degrees to standard Elm angles (radians). -}</span>
-<span class="nf">degrees</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">degrees</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.degrees</span>
+<span class="nv">degrees</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">degrees</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">degrees</span>
 
 <span class="cm">{-| Convert turns to standard Elm angles (radians).</span>
 <span class="cm">One turn is equal to 360&amp;deg;.</span>
 <span class="cm">-}</span>
-<span class="nf">turns</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">turns</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.turns</span>
+<span class="nv">turns</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">turns</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">turns</span>
 
 <span class="cm">{-| Convert polar coordinates (r,&amp;theta;) to cartesian coordinates (x,y). -}</span>
-<span class="nf">fromPolar</span> <span class="nf">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span>
-<span class="nf">fromPolar</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.fromPolar</span>
+<span class="nv">fromPolar</span> <span class="nf">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span>
+<span class="nv">fromPolar</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">fromPolar</span>
 
 <span class="cm">{-| Convert cartesian coordinates (x,y) to polar coordinates (r,&amp;theta;). -}</span>
-<span class="nf">toPolar</span> <span class="nf">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span>
-<span class="nf">toPolar</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.toPolar</span>
+<span class="nv">toPolar</span> <span class="nf">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="kt">Float</span><span class="p">,</span><span class="kt">Float</span><span class="p">)</span>
+<span class="nv">toPolar</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">toPolar</span>
 
 <span class="p">(</span><span class="nf">+</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="p">(</span><span class="nf">+</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">add</span>
+<span class="p">(</span><span class="nf">+</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">add</span>
 
 <span class="p">(</span><span class="nf">-</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="p">(</span><span class="nf">-</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.sub</span>
+<span class="p">(</span><span class="nf">-</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">sub</span>
 
 <span class="p">(</span><span class="nf">*</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="p">(</span><span class="nf">*</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">mul</span>
+<span class="p">(</span><span class="nf">*</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">mul</span>
 
 <span class="cm">{-| Floating point division. -}</span>
 <span class="p">(</span><span class="nf">/</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="p">(</span><span class="nf">/</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">floatDiv</span>
+<span class="p">(</span><span class="nf">/</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">floatDiv</span>
 
 <span class="kr">infixl</span> <span class="mi">6</span> <span class="nf">+</span>
 <span class="kr">infixl</span> <span class="mi">6</span> <span class="nf">-</span>
@@ -182,19 +182,19 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">//</span>
 <span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">%</span>
-<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">`rem`</span>
+<span class="kr">infixl</span> <span class="mi">7</span> <span class="nf">`</span><span class="nv">rem</span><span class="nf">`</span>
 
 <span class="cm">{-| Integer division. The remainder is discarded. -}</span>
 <span class="p">(</span><span class="nf">//</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="p">(</span><span class="nf">//</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.div</span>
+<span class="p">(</span><span class="nf">//</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">div</span>
 
 <span class="cm">{-| Find the remainder after dividing one number by another.</span>
 
 <span class="cm">     7 `rem` 2 == 1</span>
 <span class="cm">    -1 `rem` 4 == -1</span>
 <span class="cm">-}</span>
-<span class="nf">rem</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="nf">rem</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.rem</span>
+<span class="nv">rem</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">rem</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">rem</span>
 
 <span class="cm">{-| Perform [modular arithmetic](http://en.wikipedia.org/wiki/Modular_arithmetic).</span>
 
@@ -202,37 +202,37 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">    -1 % 4 == 3</span>
 <span class="cm">-}</span>
 <span class="p">(</span><span class="nf">%</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="p">(</span><span class="nf">%</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.mod</span>
+<span class="p">(</span><span class="nf">%</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">mod</span>
 
 <span class="cm">{-| Exponentiation</span>
 
 <span class="cm">    3^2 == 9`</span>
 <span class="cm">-}</span>
 <span class="p">(</span><span class="nf">^</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="p">(</span><span class="nf">^</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">exp</span>
+<span class="p">(</span><span class="nf">^</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">exp</span>
 
-<span class="nf">cos</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">cos</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.cos</span>
+<span class="nv">cos</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">cos</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">cos</span>
 
-<span class="nf">sin</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">sin</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.sin</span>
+<span class="nv">sin</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">sin</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">sin</span>
 
-<span class="nf">tan</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">tan</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.tan</span>
+<span class="nv">tan</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">tan</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">tan</span>
 
-<span class="nf">acos</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">acos</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.acos</span>
+<span class="nv">acos</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">acos</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">acos</span>
 
-<span class="nf">asin</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">asin</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.asin</span>
+<span class="nv">asin</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">asin</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">asin</span>
 
 <span class="cm">{-| You probably do not want to use this. It takes `(y/x)` as the</span>
 <span class="cm">argument, so there is no way to know whether the negative signs comes from</span>
 <span class="cm">the `y` or `x`. Thus, the resulting angle is always between &amp;pi;/2 and -&amp;pi;/2</span>
 <span class="cm">(in quadrants I and IV). You probably want to use `atan2` instead.</span>
 <span class="cm">-}</span>
-<span class="nf">atan</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">atan</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.atan</span>
+<span class="nv">atan</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">atan</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">atan</span>
 
 <span class="cm">{-| This helps you find the angle of a cartesian coordinate.</span>
 <span class="cm">You will almost certainly want to use this instead of `atan`.</span>
@@ -240,12 +240,12 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">quadrant the angle should really be in. The result will be between</span>
 <span class="cm">&amp;pi; and -&amp;pi;, giving you the full range of angles.</span>
 <span class="cm">-}</span>
-<span class="nf">atan2</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">atan2</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.atan2</span>
+<span class="nv">atan2</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">atan2</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">atan2</span>
 
 <span class="cm">{-| Take the square root of a number. -}</span>
-<span class="nf">sqrt</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">sqrt</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.sqrt</span>
+<span class="nv">sqrt</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">sqrt</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">sqrt</span>
 
 <span class="cm">{-| Negate a number.</span>
 
@@ -253,20 +253,20 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">    negate -42 == 42</span>
 <span class="cm">    negate 0 == 0</span>
 <span class="cm">-}</span>
-<span class="nf">negate</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="nf">negate</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.negate</span>
+<span class="nv">negate</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="nv">negate</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">negate</span>
 
 <span class="cm">{-| Take the absolute value of a number. -}</span>
-<span class="nf">abs</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="nf">abs</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.abs</span>
+<span class="nv">abs</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="nv">abs</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">abs</span>
 
 <span class="cm">{-| Calculate the logarithm of a number with a given base.</span>
 
 <span class="cm">    logBase 10 100 == 2</span>
 <span class="cm">    logBase 2 256 == 8</span>
 <span class="cm">-}</span>
-<span class="nf">logBase</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">logBase</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.logBase</span>
+<span class="nv">logBase</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">logBase</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">logBase</span>
 
 <span class="cm">{-| Clamps a number within a given range. With the expression</span>
 <span class="cm">`clamp 100 200 x` the results are as follows:</span>
@@ -275,34 +275,34 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">     x      if 100 &lt;= x &lt; 200</span>
 <span class="cm">    200     if 200 &lt;= x</span>
 <span class="cm">-}</span>
-<span class="nf">clamp</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
-<span class="nf">clamp</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.clamp</span>
+<span class="nv">clamp</span> <span class="nf">:</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span> <span class="nf">-&gt;</span> <span class="nv">number</span>
+<span class="nv">clamp</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">clamp</span>
 
 <span class="cm">{-| An approximation of pi. -}</span>
-<span class="nf">pi</span> <span class="nf">:</span> <span class="kt">Float</span>
-<span class="nf">pi</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.pi</span>
+<span class="nv">pi</span> <span class="nf">:</span> <span class="kt">Float</span>
+<span class="nv">pi</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">pi</span>
 
 <span class="cm">{-| An approximation of e. -}</span>
-<span class="nf">e</span> <span class="nf">:</span> <span class="kt">Float</span>
-<span class="nf">e</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.e</span>
+<span class="nv">e</span> <span class="nf">:</span> <span class="kt">Float</span>
+<span class="nv">e</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">e</span>
 
 <span class="p">(</span><span class="nf">==</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">==</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">eq</span>
+<span class="p">(</span><span class="nf">==</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">eq</span>
 
 <span class="p">(</span><span class="nf">/=</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">/=</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">neq</span>
+<span class="p">(</span><span class="nf">/=</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">neq</span>
 
 <span class="p">(</span><span class="nf">&lt;</span><span class="p">)</span>  <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">&lt;</span><span class="p">)</span>  <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">lt</span>
+<span class="p">(</span><span class="nf">&lt;</span><span class="p">)</span>  <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">lt</span>
 
 <span class="p">(</span><span class="nf">&gt;</span><span class="p">)</span>  <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">&gt;</span><span class="p">)</span>  <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">gt</span>
+<span class="p">(</span><span class="nf">&gt;</span><span class="p">)</span>  <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">gt</span>
 
 <span class="p">(</span><span class="nf">&lt;=</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">&lt;=</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">le</span>
+<span class="p">(</span><span class="nf">&lt;=</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">le</span>
 
 <span class="p">(</span><span class="nf">&gt;=</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">&gt;=</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.</span><span class="nv">ge</span>
+<span class="p">(</span><span class="nf">&gt;=</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">ge</span>
 
 <span class="kr">infix</span> <span class="mi">4</span> <span class="nf">==</span>
 <span class="kr">infix</span> <span class="mi">4</span> <span class="nf">/=</span>
@@ -315,8 +315,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">`Int`, `Float`, `Time`, or a list or tuple containing comparable values.</span>
 <span class="cm">These are also the only values that work as `Dict` keys or `Set` members.</span>
 <span class="cm">-}</span>
-<span class="nf">compare</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Order</span>
-<span class="nf">compare</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.compare</span>
+<span class="nv">compare</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="kt">Order</span>
+<span class="nv">compare</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">compare</span>
 
 <span class="cm">{-| Represents the relative ordering of two things.</span>
 <span class="cm">The relations are less than, equal to, and greater than.</span>
@@ -324,66 +324,66 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="kr">type</span> <span class="kt">Order</span> <span class="nf">=</span> <span class="kt">LT</span> <span class="err">|</span> <span class="nv">EQ</span> <span class="err">|</span> <span class="kt">GT</span>
 
 <span class="cm">{-| Find the smaller of two comparables. -}</span>
-<span class="nf">min</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span>
-<span class="nf">min</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.min</span>
+<span class="nv">min</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span>
+<span class="nv">min</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">min</span>
 
 <span class="cm">{-| Find the larger of two comparables. -}</span>
-<span class="nf">max</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span>
-<span class="nf">max</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.max</span>
+<span class="nv">max</span> <span class="nf">:</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span> <span class="nf">-&gt;</span> <span class="nv">comparable</span>
+<span class="nv">max</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">max</span>
 
 <span class="cm">{-| The logical AND operator. `True` if both inputs are `True`.</span>
 <span class="cm">This operator short-circuits to `False` if the first argument is `False`.</span>
 <span class="cm">-}</span>
 <span class="p">(</span><span class="nf">&amp;&amp;</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">&amp;&amp;</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.and</span>
+<span class="p">(</span><span class="nf">&amp;&amp;</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">and</span>
 
 <span class="cm">{-| The logical OR operator. `True` if one or both inputs are `True`.</span>
 <span class="cm">This operator short-circuits to `True` if the first argument is True.</span>
 <span class="cm">-}</span>
 <span class="p">(</span><span class="nf">||</span><span class="p">)</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="p">(</span><span class="nf">||</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.or</span>
+<span class="p">(</span><span class="nf">||</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">or</span>
 
 <span class="kr">infixr</span> <span class="mi">3</span> <span class="nf">&amp;&amp;</span>
 <span class="kr">infixr</span> <span class="mi">2</span> <span class="nf">||</span>
 
 <span class="cm">{-| The exclusive-or operator. `True` if exactly one input is `True`. -}</span>
-<span class="nf">xor</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="nf">xor</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.xor</span>
+<span class="nv">xor</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nv">xor</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">xor</span>
 
 <span class="cm">{-| Negate a boolean value.</span>
 
 <span class="cm">    not True == False</span>
 <span class="cm">    not False == True</span>
 <span class="cm">-}</span>
-<span class="nf">not</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="nf">not</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.not</span>
+<span class="nv">not</span> <span class="nf">:</span> <span class="kt">Bool</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nv">not</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">not</span>
 
 <span class="cm">{-| Equal to `True`. Useful as the last case of a multi-way-if. -}</span>
-<span class="nf">otherwise</span> <span class="nf">:</span> <span class="kt">Bool</span>
-<span class="nf">otherwise</span> <span class="nf">=</span> <span class="kt">True</span>
+<span class="nv">otherwise</span> <span class="nf">:</span> <span class="kt">Bool</span>
+<span class="nv">otherwise</span> <span class="nf">=</span> <span class="kt">True</span>
 
 
 <span class="c1">-- Conversions</span>
 
 <span class="cm">{-| Round a number to the nearest integer. -}</span>
-<span class="nf">round</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="nf">round</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.round</span>
+<span class="nv">round</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">round</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">round</span>
 
 <span class="cm">{-| Truncate a number, rounding towards zero. -}</span>
-<span class="nf">truncate</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="nf">truncate</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.truncate</span>
+<span class="nv">truncate</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">truncate</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">truncate</span>
 
 <span class="cm">{-| Floor function, rounding down. -}</span>
-<span class="nf">floor</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="nf">floor</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.floor</span>
+<span class="nv">floor</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">floor</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">floor</span>
 
 <span class="cm">{-| Ceiling function, rounding up. -}</span>
-<span class="nf">ceiling</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
-<span class="nf">ceiling</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.ceiling</span>
+<span class="nv">ceiling</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Int</span>
+<span class="nv">ceiling</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">ceiling</span>
 
 <span class="cm">{-| Convert an integer into a float. -}</span>
-<span class="nf">toFloat</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
-<span class="nf">toFloat</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.toFloat</span>
+<span class="nv">toFloat</span> <span class="nf">:</span> <span class="kt">Int</span> <span class="nf">-&gt;</span> <span class="kt">Float</span>
+<span class="nv">toFloat</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">toFloat</span>
 
 <span class="cm">{- | Determine whether a float is an undefined or unrepresentable number.</span>
 <span class="cm">NaN stands for *not a number* and it is [a standardized part of floating point</span>
@@ -394,8 +394,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">    isNaN (1/0)     == False  -- infinity is a number</span>
 <span class="cm">    isNaN 1         == False</span>
 <span class="cm">-}</span>
-<span class="nf">isNaN</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="nf">isNaN</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.isNaN</span>
+<span class="nv">isNaN</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nv">isNaN</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">isNaN</span>
 
 <span class="cm">{- | Determine whether a float is positive or negative infinity.</span>
 
@@ -407,8 +407,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">Notice that NaN is not infinite! For float `n` to be finite implies that</span>
 <span class="cm">`not (isInfinite n || isNaN n)` evaluates to `True`.</span>
 <span class="cm">-}</span>
-<span class="nf">isInfinite</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
-<span class="nf">isInfinite</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="kt">Basics</span><span class="nf">.isInfinite</span>
+<span class="nv">isInfinite</span> <span class="nf">:</span> <span class="kt">Float</span> <span class="nf">-&gt;</span> <span class="kt">Bool</span>
+<span class="nv">isInfinite</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Basics</span><span class="nf">.</span><span class="nv">isInfinite</span>
 
 
 <span class="cm">{-| Turn any kind of value into a string.</span>
@@ -416,8 +416,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">    toString 42    == &quot;42&quot;</span>
 <span class="cm">    toString [1,2] == &quot;[1,2]&quot;</span>
 <span class="cm">-}</span>
-<span class="nf">toString</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">String</span>
-<span class="nf">toString</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Show</span><span class="nf">.toString</span>
+<span class="nv">toString</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="kt">String</span>
+<span class="nv">toString</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Show</span><span class="nf">.</span><span class="nv">toString</span>
 
 
 <span class="cm">{-| Put two appendable things together. This includes strings, lists, and text.</span>
@@ -426,7 +426,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">    [1,1,2] ++ [3,5,8] == [1,1,2,3,5,8]</span>
 <span class="cm">-}</span>
 <span class="p">(</span><span class="nf">++</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">appendable</span> <span class="nf">-&gt;</span> <span class="nv">appendable</span> <span class="nf">-&gt;</span> <span class="nv">appendable</span>
-<span class="p">(</span><span class="nf">++</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Utils</span><span class="nf">.append</span>
+<span class="p">(</span><span class="nf">++</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">Native</span><span class="nf">.</span><span class="nv">Utils</span><span class="nf">.</span><span class="nv">append</span>
 
 <span class="kr">infixr</span> <span class="mi">5</span> <span class="nf">++</span>
 
@@ -473,8 +473,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="cm">      |&gt; move (10,10)</span>
 <span class="cm">      |&gt; scale 2</span>
 <span class="cm">-}</span>
-<span class="p">(</span><span class="err">|</span><span class="nf">&gt;</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
-<span class="nv">x</span> <span class="err">|</span><span class="nf">&gt;</span> <span class="nv">f</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">x</span>
+<span class="p">(</span><span class="nf">|&gt;</span><span class="p">)</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
+<span class="nv">x</span> <span class="nf">|&gt;</span> <span class="nv">f</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">x</span>
 
 <span class="cm">{-| Backward function application `f &lt;| x == f x`. This function is useful for</span>
 <span class="cm">avoiding parenthesis. Consider the following code to create a text element:</span>
@@ -491,13 +491,13 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="kr">infixr</span> <span class="mi">9</span> <span class="nf">&lt;&lt;</span>
 <span class="kr">infixl</span> <span class="mi">9</span> <span class="nf">&gt;&gt;</span>
 <span class="kr">infixr</span> <span class="mi">0</span> <span class="nf">&lt;|</span>
-<span class="kr">infixl</span> <span class="mi">0</span> <span class="err">|</span><span class="nf">&gt;</span>
+<span class="kr">infixl</span> <span class="mi">0</span> <span class="nf">|&gt;</span>
 
 <span class="cm">{-| Given a value, returns exactly the same value. This is called</span>
 <span class="cm">[the identity function](http://en.wikipedia.org/wiki/Identity_function).</span>
 <span class="cm">-}</span>
-<span class="nf">identity</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
-<span class="nf">identity</span> <span class="nv">x</span> <span class="nf">=</span> <span class="nv">x</span>
+<span class="nv">identity</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
+<span class="nv">identity</span> <span class="nv">x</span> <span class="nf">=</span> <span class="nv">x</span>
 
 <span class="cm">{-| Create a [constant function](http://en.wikipedia.org/wiki/Constant_function),</span>
 <span class="cm">a function that *always* returns the same value regardless of what input you give.</span>
@@ -512,32 +512,32 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="cm">    map (always 0) [0..9]</span>
 <span class="cm">-}</span>
-<span class="nf">always</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
-<span class="nf">always</span> <span class="nv">a</span> <span class="kr">_</span> <span class="nf">=</span> <span class="nv">a</span>
+<span class="nv">always</span> <span class="nf">:</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
+<span class="nv">always</span> <span class="nv">a</span> <span class="kr">_</span> <span class="nf">=</span> <span class="nv">a</span>
 
 <span class="cm">{-| Given a 2-tuple, returns the first value. -}</span>
-<span class="nf">fst</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
-<span class="nf">fst</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="kr">_</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">a</span>
+<span class="nv">fst</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span>
+<span class="nv">fst</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="kr">_</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">a</span>
 
 <span class="cm">{-| Given a 2-tuple, returns the second value. -}</span>
-<span class="nf">snd</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
-<span class="nf">snd</span> <span class="p">(</span><span class="kr">_</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">b</span>
+<span class="nv">snd</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">b</span>
+<span class="nv">snd</span> <span class="p">(</span><span class="kr">_</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">b</span>
 
 <span class="cm">{-| Flip the order of the first two arguments to a function. -}</span>
-<span class="nf">flip</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span>
-<span class="nf">flip</span> <span class="nv">f</span> <span class="nv">b</span> <span class="nv">a</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span>
+<span class="nv">flip</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span>
+<span class="nv">flip</span> <span class="nv">f</span> <span class="nv">b</span> <span class="nv">a</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span>
 
 <span class="cm">{-| Change how arguments are passed to a function.</span>
 <span class="cm">This splits paired arguments into two separate arguments.</span>
 <span class="cm">-}</span>
-<span class="nf">curry</span> <span class="nf">:</span> <span class="p">((</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span>
-<span class="nf">curry</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nf">=</span> <span class="nv">f</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span>
+<span class="nv">curry</span> <span class="nf">:</span> <span class="p">((</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span>
+<span class="nv">curry</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nf">=</span> <span class="nv">f</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span>
 
 <span class="cm">{-| Change how arguments are passed to a function.</span>
 <span class="cm">This combines two arguments into a single pair.</span>
 <span class="cm">-}</span>
-<span class="nf">uncurry</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">c</span>
-<span class="nf">uncurry</span> <span class="nv">f</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span>
+<span class="nv">uncurry</span> <span class="nf">:</span> <span class="p">(</span><span class="nv">a</span> <span class="nf">-&gt;</span> <span class="nv">b</span> <span class="nf">-&gt;</span> <span class="nv">c</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">-&gt;</span> <span class="nv">c</span>
+<span class="nv">uncurry</span> <span class="nv">f</span> <span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">)</span> <span class="nf">=</span> <span class="nv">f</span> <span class="nv">a</span> <span class="nv">b</span>
 </pre></div>
 </body>
 </html>

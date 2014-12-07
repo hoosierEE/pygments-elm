@@ -67,12 +67,12 @@ class ElmLexer(RegexLexer):
         '/=',
         ':',
         '::',
-        '<',
         '<-',
         '<<',
         '<=',
         '<|',
         '<~',
+        '<',
         '=',
         '==',
         '>',
@@ -82,9 +82,9 @@ class ElmLexer(RegexLexer):
         '\\',
         '^',
         '`',
-        '|'
         '|>',
         '||',
+        '|'
         '~',
         ))
 
@@ -599,13 +599,13 @@ class ElmLexer(RegexLexer):
             (reservedWords, Keyword.Reserved),
 
             # Libraries
-            (libraries, Keyword.Type),
+            #(libraries, Keyword.Type),
 
             # Types
             (builtinTypes, Keyword.Type),
 
             # Standard Library Functions
-            (coreLib, Name.Function),
+            #(coreLib, Name.Function),
 
             # Main
             (specialName, Keyword.Reserved),
