@@ -29,10 +29,9 @@ class ElmLexer(RegexLexer):
     specialName = r'^main '
 
     builtinOps = (
-        '%', '&&', '*', '+', '++', '-', '->', '.', '..', '//',
-        '/', '/=', ':', '::', '<-', '<<', '<=', '<|', '<~', '<',
-        '=', '==', '>', '>=', '>>', '\'', '\\', '^', '`', '|>',
-        '||', '|', '~',
+        '~', '||', '|>', '|', '`', '^', '\\', '\'', '>>', '>=', '>', '==',
+        '=', '<~', '<|', '<=', '<<', '<-', '<', '::', ':', '/=', '//', '/',
+        '..', '.', '->', '-', '++', '+', '*', '&&', '%',
     )
 
     reservedWords = words((
@@ -41,7 +40,8 @@ class ElmLexer(RegexLexer):
         'module', 'newtype', 'of', 'then', 'type', 'where',
     ), suffix=r'\b')
 
-    tokens = { 'root': [
+    tokens = {
+        'root': [
 
             # Comments
             (r'{-', Comment.Multiline, 'comment'),
@@ -52,6 +52,9 @@ class ElmLexer(RegexLexer):
 
             # Strings
             (r'"', String, 'doublequote'),
+
+            # Modules
+            (r'^\s*module\s*', Keyword.Namespace, 'imports'),
 
             # Imports
             (r'^\s*import\s*', Keyword.Namespace, 'imports'),
