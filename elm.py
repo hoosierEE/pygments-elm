@@ -9,8 +9,8 @@
 
 import re
 
-from pygments.lexer import bygroups, RegexLexer, words, include, using
-from pygments.token import Comment, Keyword, Name, Number, Operator, Punctuation, String, Text, Error
+from pygments.lexer import RegexLexer, words, include
+from pygments.token import Comment, Keyword, Name, Number, Operator, Punctuation, String, Text
 
 __all__ = ['ElmLexer']
 
@@ -35,9 +35,9 @@ class ElmLexer(RegexLexer):
     )
 
     reservedWords = words((
-        'if', 'then', 'else', 'case', 'of', 'let', 'in', 'type', 'module', 'where',
-        'import', 'as', 'hiding', 'open', 'export', 'foreign', 'deriving', 'port',
-    ), suffix=r'\b')
+        'alias', 'as', 'case', 'else', 'if', 'import', 'in',
+        'let', 'module', 'of', 'port', 'then', 'type', 'where',
+        ), suffix=r'\b')
 
     tokens = {
         'root': [
@@ -57,6 +57,9 @@ class ElmLexer(RegexLexer):
 
             # Imports
             (r'^\s*import\s*', Keyword.Namespace, 'imports'),
+
+            # Shaders
+            (r'\[glsl\|.*', Name.Entity, 'shader'),
 
             # Keywords
             (reservedWords, Keyword.Reserved),
@@ -87,20 +90,8 @@ class ElmLexer(RegexLexer):
         'comment': [
             (r'-(?!})', Comment.Multiline),
             (r'{-', Comment.Multiline, 'comment'),
-            (r'^@docs .*\n', Comment.Preproc),
-            (r'^# .*\n', Comment.Preproc),
-            (r'^ {4}.*\n', String.Doc),
             (r'[^-}]', Comment.Multiline),
             (r'-}', Comment.Multiline, '#pop'),
-        ],
-
-        'imports': [
-            (r'\w+\.?\w+', Name.Class, '#pop'),
-        ],
-
-        'numbers': [
-            (r'_?\d+\.(?=\d+)', Number.Float),
-            (r'_?\d+', Number.Integer),
         ],
 
         'doublequote': [
@@ -108,6 +99,21 @@ class ElmLexer(RegexLexer):
             (r'\\[nrfvb\\\"]', String.Escape),
             (r'[^"]', String),
             (r'"', String, '#pop'),
+        ],
+
+        'imports': [
+            (r'\w+(\.\w+)*', Name.Class, '#pop'),
+        ],
+
+        'numbers': [
+            (r'_?\d+\.(?=\d+)', Number.Float),
+            (r'_?\d+', Number.Integer),
+        ],
+
+        'shader': [
+            (r'\|(?!\])', Name.Entity),
+            (r'\|\]', Name.Entity, '#pop'),
+            (r'.*\n', Name.Entity),
         ],
     }
 
