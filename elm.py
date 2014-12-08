@@ -35,9 +35,8 @@ class ElmLexer(RegexLexer):
     )
 
     reservedWords = words((
-        '_', 'as', 'case', 'class', 'data', 'default', 'deriving', 'else', 'export', 'foreign',
-        'hiding', 'if', 'import', 'in', 'infix', 'infixl', 'infixr', 'instance', 'jsevent', 'let',
-        'module', 'newtype', 'of', 'then', 'type', 'where',
+        'if', 'then', 'else', 'case', 'of', 'let', 'in', 'type', 'module', 'where',
+        'import', 'as', 'hiding', 'open', 'export', 'foreign', 'deriving', 'port',
     ), suffix=r'\b')
 
     tokens = {
