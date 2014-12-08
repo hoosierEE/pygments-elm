@@ -11,6 +11,10 @@ Text, Maybe, Time, Graphics.Element, Color, Graphics.Collage.
 
 # Comparison
 
+{- Comments may be nested!
+  {- Comments may be nested! -}
+  -}
+
 These functions only work on `comparable` types. This includes numbers,
 characters, strings, lists of comparable things, and tuples of comparable
 things. Note that tuples with 7 or more elements are not comparable; why

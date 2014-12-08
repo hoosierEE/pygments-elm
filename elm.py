@@ -24,7 +24,7 @@ class ElmLexer(RegexLexer):
     filenames = ['*.elm']
     mimetypes = ['text/x-elm']
 
-    validName = r'\w[\w\']*'
+    validName = r'[a-z_][a-zA-Z_\']*'
 
     specialName = r'^main '
 
@@ -86,6 +86,10 @@ class ElmLexer(RegexLexer):
 
         'comment': [
             (r'-(?!})', Comment.Multiline),
+            (r'{-', Comment.Multiline, 'comment'),
+            (r'^@docs .*\n', Comment.Preproc),
+            (r'^# .*\n', Comment.Preproc),
+            (r'^ {4}.*\n', String.Doc),
             (r'[^-}]', Comment.Multiline),
             (r'-}', Comment.Multiline, '#pop'),
         ],
