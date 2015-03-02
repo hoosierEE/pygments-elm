@@ -13,5 +13,4 @@ else
     sudo cp "$*" /usr/lib/python2.7/"$pygmentsDir"/"$*"
 fi
 
-# By the way, please only put one test file in examples/ or this will explode.
-pygmentize -f html -O full -o output/test.html examples/*
+pygmentize -f html -O full -o output/test.html examples/example.elm
